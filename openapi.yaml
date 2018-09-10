@@ -21,13 +21,20 @@ paths:
           schema:
             type: integer
             format: int32
+        - name: start
+          in: query
+          description: How many items to skip
+          required: false
+          schema:
+            type: integer
+            format: int32
       responses:
         '200':
           description: A paged array of members
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/members'
+                $ref: '#/components/schemas/Members'
         default:
           description: unexpected error
           content:
@@ -43,31 +50,38 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Member'
+              $ref: '#/components/schemas/NewMember'
       tags:
         - members
       responses:
         '201':
           description: Null response
+        '400':
+          description: Response when request is wrong, i.e. if required fields are empty
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         default:
           description: unexpected error
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  '/pets/{petId}':
+  '/members/{memberId}':
     get:
-      summary: Info for a specific pet
-      operationId: showPetById
+      summary: Info for a specific Member
+      operationId: showMemberById
       tags:
         - members
       parameters:
-        - name: petId
+        - name: memberId
           in: path
           required: true
-          description: The id of the pet to retrieve
+          description: The id of the Member to retrieve
           schema:
-            type: string
+            type: integer
+            format: int64
       responses:
         '200':
           description: Expected response to a valid request
@@ -75,6 +89,81 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Members'
+        '404':
+          description: Response when no Member found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      summary: Update a specific Member
+      operationId: updateMemberById
+      tags:
+        - members
+      parameters:
+        - name: memberId
+          in: path
+          required: true
+          description: The id of the Member to update
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        description: Member to update
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewMember'
+      responses:
+        '204':
+          description: Expected response to a valid request
+        '400':
+          description: Response when request is wrong, i.e. if required fields are empty
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Response when no Member found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      summary: Delete specific member
+      operationId: deleteMemberById
+      tags:
+        - members
+      parameters:
+        - name: memberId
+          in: path
+          required: true
+          description: The id of the Member to delete
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '204':
+          description: Expected response to a valid request
+        '404':
+          description: Response when no Member found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         default:
           description: unexpected error
           content:
@@ -83,18 +172,23 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
-    Member:
+    NewMember:
       required:
-        - id
+        - firstName
+        - lastName
+        - dateOfBirth
+        - sex
+        - status
+        - email
+        - address
+        - bankingAccount
+        - admissioned
       properties:
-        id:
-          type: integer
-          format: int64
         firstName:
           type: string
         lastName:
           type: string
-        dob:
+        dateOfBirth:
           type: string
           format: date
         sex:
@@ -117,6 +211,7 @@ components:
           type: array
           items:
             type: string
+            enum: [Vorstandsvorsitzender, Systemadministrator, Kassierer, Flugwart, ImBetriebskontrollturmArbeitend]
         flightAuthorization:
           type: array
           items:
@@ -124,9 +219,22 @@ components:
             properties:
               authorization:
                 type: string
+                enum: [PPL-A, PPL-B, BZF-I, BZF-II, Lehrbefugnis]
+              dateOfIssue:
+                type: string
+                format: date
               expires:
                 type: string
                 format: date
+    Member:
+      allOf:
+        - required:
+          - id
+          properties:
+            id:
+              type: integer
+              format: int64
+        - $ref: '#/components/schemas/NewMember'
     Members:
       type: array
       items:
@@ -142,6 +250,12 @@ components:
         message:
           type: string
     Address:
+      required:
+        - postalCode
+        - streetAddress
+        - city
+        - state
+        - country
       properties:
         postalCode:
           type: integer
