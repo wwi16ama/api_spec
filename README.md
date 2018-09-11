@@ -6,3 +6,6 @@ version: X.Y.Z
   - X: per final Sprint Version
   - Y: per version with new feature from a branch
   - Z: bugs squashed, bugs added
+## forking
+
+to propose changes, fork and create a pull request
