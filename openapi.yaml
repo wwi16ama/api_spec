@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  version: 0.1.0
+  version: 0.1.1
   title: WWI16AMA - Spec
   license:
     name: APL 2
@@ -54,8 +54,12 @@ paths:
       tags:
         - members
       responses:
-        '201':
-          description: Null response
+        '200':
+          description: Responds with the Member and all his fields
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Member'
         '400':
           description: Response when request is wrong, i.e. if required fields are empty
           content:
@@ -215,17 +219,7 @@ components:
         flightAuthorization:
           type: array
           items:
-            type: object
-            properties:
-              authorization:
-                type: string
-                enum: [PPL-A, PPL-B, BZF-I, BZF-II, Lehrbefugnis]
-              dateOfIssue:
-                type: string
-                format: date
-              expires:
-                type: string
-                format: date
+            $ref: '#/components/schemas/Authorization'
     Member:
       allOf:
         - required:
@@ -254,8 +248,7 @@ components:
         - postalCode
         - streetAddress
         - city
-        - state
-        - country
+        - streetNumber
       properties:
         postalCode:
           type: integer
@@ -264,7 +257,17 @@ components:
           type: string
         city:
           type: string
-        state:
+        streetNumber:
+          type: integer
+          format: int32
+    Authorization:
+      properties:
+        authorization:
           type: string
-        country:
+          enum: [PPL-A, PPL-B, BZF-I, BZF-II, Lehrbefugnis]
+        dateOfIssue:
           type: string
+          format: date
+        expires:
+          type: string
+          format: date
