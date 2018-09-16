@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  version: 0.1.1
+  version: 0.1.2
   title: WWI16AMA - Spec
   license:
     name: APL 2
@@ -21,6 +21,7 @@ paths:
           schema:
             type: integer
             format: int32
+            default: 20
         - name: start
           in: query
           description: How many items to skip
@@ -28,6 +29,22 @@ paths:
           schema:
             type: integer
             format: int32
+            default: 0
+        - name: orderBy
+          in: query
+          description: The field by which the result is to be sorted
+          required: false
+          schema:
+            type: string
+            default: lastName
+        - name: direction
+          in: query
+          description: the sorting direction
+          required: false
+          schema:
+            type: string
+            enum: ["asc", "desc"]
+            default: "asc"
       responses:
         '200':
           description: A paged array of members
@@ -35,6 +52,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Members'
+        '400':
+          description: This error is thrown when the parameters are faulty
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         default:
           description: unexpected error
           content:
@@ -235,12 +258,11 @@ components:
         $ref: '#/components/schemas/Member'
     Error:
       required:
-        - code
+        - url
         - message
       properties:
-        code:
-          type: integer
-          format: int32
+        url:
+          type: string
         message:
           type: string
     Address:
