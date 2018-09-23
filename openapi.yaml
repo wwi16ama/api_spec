@@ -204,7 +204,7 @@ components:
         - firstName
         - lastName
         - dateOfBirth
-        - sex
+        - gender
         - status
         - email
         - address
@@ -218,8 +218,9 @@ components:
         dateOfBirth:
           type: string
           format: date
-        sex:
+        gender:
           type: string
+          enum: [male, female, other]
         status:
           type: string
           enum: [active, passive, honoraryMember]
