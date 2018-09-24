@@ -236,10 +236,7 @@ components:
         memberBankingAccount:
           type: string
         offices:
-          type: array
-          items:
-            type: string
-            enum: [Vorstandsvorsitzender, Systemadministrator, Kassierer, Flugwart, ImBetriebskontrollturmArbeitend]
+          $ref: '#/components/schemas/Offices'
         flightAuthorization:
           type: array
           items:
@@ -290,3 +287,8 @@ components:
         expires:
           type: string
           format: date
+    Offices:
+      properties:
+        title:
+          type: string
+          enum: [Vorstandsvorsitzender, Systemadministrator, Kassierer, Flugwart, ImBetriebskontrollturmArbeitend]
