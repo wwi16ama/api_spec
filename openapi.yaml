@@ -282,7 +282,7 @@ components:
       properties:
         authorization:
           type: string
-          enum: [PPL-A, PPL-B, BZF-I, BZF-II, LEHRBEFUGNIS]
+          enum: [PPLA, PPLB, BZFI, BZFII, LEHRBEFUGNIS]
         dateOfIssue:
           type: string
           format: date
