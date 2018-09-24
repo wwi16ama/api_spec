@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  version: 0.1.2
+  version: 0.1.3
   title: WWI16AMA - Spec
   license:
     name: APL 2
@@ -220,10 +220,10 @@ components:
           format: date
         gender:
           type: string
-          enum: [male, female, other]
+          enum: [MALE, FEMALE, OTHER]
         status:
           type: string
-          enum: [active, passive, honoraryMember]
+          enum: [ACTIVE, PASSIVE, HONORARYMEMBER]
         email:
           type: string
           format: email
@@ -238,8 +238,7 @@ components:
         offices:
           type: array
           items:
-            type: string
-            enum: [Vorstandsvorsitzender, Systemadministrator, Kassierer, Flugwart, ImBetriebskontrollturmArbeitend]
+            $ref: '#/components/schemas/Office'
         flightAuthorization:
           type: array
           items:
@@ -283,10 +282,15 @@ components:
       properties:
         authorization:
           type: string
-          enum: [PPL-A, PPL-B, BZF-I, BZF-II, Lehrbefugnis]
+          enum: [PPL-A, PPL-B, BZF-I, BZF-II, LEHRBEFUGNIS]
         dateOfIssue:
           type: string
           format: date
         expires:
           type: string
           format: date
+    Office:
+      properties:
+        title:
+          type: string
+          enum: [VORSTANDSVORSITZENDER, SYSTEMADMINISTRATOR, KASSIERER, FLUGWART, IMBETRIEBSKONTROLLTURMARBEITEND]
