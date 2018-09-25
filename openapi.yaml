@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  version: 0.1.5
+  version: 0.2.0
   title: WWI16AMA - Spec
   license:
     name: APL 2
@@ -486,18 +486,18 @@ components:
           enum: [VORSTANDSVORSITZENDER, SYSTEMADMINISTRATOR, KASSIERER, FLUGWART, IMBETRIEBSKONTROLLTURMARBEITEND]
     NewPlane:
       required:
-        - planeNumber
-        - planeName
-        - planePosition
-        - planeAuthorization
+        - number
+        - name
+        - position
+        - neededAuthorization
       properties:
-        planeNumber:
+        number:
           type: string
-        planeName:
+        name:
           type: string
-        planePosition:
+        position:
           type: string
-        planeAuthorization:
+        neededAuthorization:
           type: string
           enum: [PPLA, PPLB]
     Plane:
