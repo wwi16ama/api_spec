@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  version: 0.2.1
+  version: 0.2.2
   title: WWI16AMA - Spec
   license:
     name: APL 2
@@ -97,14 +97,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  '/members/{memberId}':
+  '/members/{id}':
     get:
       summary: Info for a specific Member
       operationId: showMemberById
       tags:
         - members
       parameters:
-        - name: memberId
+        - name: id
           in: path
           required: true
           description: The id of the Member to retrieve
@@ -136,7 +136,7 @@ paths:
       tags:
         - members
       parameters:
-        - name: memberId
+        - name: id
           in: path
           required: true
           description: The id of the Member to update
@@ -177,7 +177,7 @@ paths:
       tags:
         - members
       parameters:
-        - name: memberId
+        - name: id
           in: path
           required: true
           description: The id of the Member to delete
@@ -242,7 +242,7 @@ paths:
           required: false
           schema:
             type: string
-            default: planeName
+            default: name
         - name: direction
           in: query
           description: the sorting direction
@@ -303,14 +303,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  '/plane/{planeId}':
+  '/plane/{id}':
     get:
       summary: Info for a specific Plane
       operationId: showPlaneById
       tags:
         - Planes
       parameters:
-        - name: planeId
+        - name: id
           in: path
           required: true
           description: The id of the Plane to retrieve
@@ -344,7 +344,7 @@ paths:
       tags:
         - Planes
       parameters:
-        - name: planeId
+        - name: id
           in: path
           required: true
           description: The id of the Plane to update
@@ -385,7 +385,7 @@ paths:
       tags:
         - Planes
       parameters:
-        - name: planeId
+        - name: id
           in: path
           required: true
           description: The id of the Plane to delete
