@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  version: 0.2.0
+  version: 0.2.1
   title: WWI16AMA - Spec
   license:
     name: APL 2
@@ -199,7 +199,21 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  /plane:
+  /fees:
+    get:
+      summary: List of fees
+      tags:
+        - Fees
+      responses:
+        '200':
+          description: An array of fees
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Fee'
+  /planes:
     get:
       summary: List of all planes
       operationId: listPlanes
@@ -524,3 +538,11 @@ components:
               type: integer
               format: int64
         - $ref: '#/components/schemas/NewPlane'
+    Fee:
+      properties:
+        category:
+          type: string
+          enum: [ACTIVE, ACTIVEREDUCED, PASSIVE, HONORARYMEMBER]
+        fee:
+          type: integer
+          format: int32
