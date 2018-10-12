@@ -5,7 +5,7 @@ info:
   license:
     name: APL 2
 servers:
-  - url: 'localhost:8081/backend_api'
+  - url: 'http://wwi16ama.feste-ip.net:32409/backend_api/'
 paths:
   /members:
     get:
