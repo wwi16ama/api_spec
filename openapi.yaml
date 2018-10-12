@@ -303,7 +303,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  '/plane/{id}':
+  '/planes/{id}':
     get:
       summary: Info for a specific Plane
       operationId: showPlaneById
