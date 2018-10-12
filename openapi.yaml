@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  version: 0.1.5
+  version: 0.2.2
   title: WWI16AMA - Spec
   license:
     name: APL 2
@@ -51,7 +51,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Members'
+                type: array
+                items:
+                    $ref: '#/components/schemas/ListMember'
         '400':
           description: This error is thrown when the parameters are faulty
           content:
@@ -115,7 +117,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Members'
+                $ref: '#/components/schemas/Member'
         '404':
           description: Response when no Member found
           content:
@@ -197,7 +199,21 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  /plane:
+  /fees:
+    get:
+      summary: List of fees
+      tags:
+        - Fees
+      responses:
+        '200':
+          description: An array of fees
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Fee'
+  /planes:
     get:
       summary: List of all planes
       operationId: listPlanes
@@ -241,7 +257,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Planes'
+                type: array
+                items: 
+                  $ref: '#/components/schemas/Plane'
         '400':
           description: This error is thrown when the parameters are faulty
           content:
@@ -305,7 +323,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Planes'
+                type: array
+                items:
+                  $ref: '#/components/schemas/Plane'
         '404':
           description: Response when no Plane found
           content:
@@ -442,10 +462,19 @@ components:
               type: integer
               format: int64
         - $ref: '#/components/schemas/NewMember'
-    Members:
-      type: array
-      items:
-        $ref: '#/components/schemas/Member'
+    ListMember:
+      required:
+        - id
+        - firstName
+        - lastName
+      properties:
+        id:
+          type: integer
+          format: int32
+        firstName:
+          type: string
+        lastName:
+          type: string
     Error:
       required:
         - url
@@ -509,7 +538,11 @@ components:
               type: integer
               format: int64
         - $ref: '#/components/schemas/NewPlane'
-    Planes:
-      type: array
-      items:
-        $ref: '#/components/schemas/Plane'
+    Fee:
+      properties:
+        category:
+          type: string
+          enum: [ACTIVE, ACTIVEREDUCED, PASSIVE, HONORARYMEMBER]
+        fee:
+          type: integer
+          format: int32
