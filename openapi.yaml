@@ -1,11 +1,11 @@
 openapi: 3.0.0
 info:
-  version: 0.2.2
+  version: 0.2.3
   title: WWI16AMA - Spec
   license:
     name: APL 2
 servers:
-  - url: 'tbd'
+  - url: 'localhost:8081/backend_api'
 paths:
   /members:
     get:
@@ -539,6 +539,9 @@ components:
               format: int64
         - $ref: '#/components/schemas/NewPlane'
     Fee:
+      required:
+        - category
+        - fee
       properties:
         category:
           type: string
