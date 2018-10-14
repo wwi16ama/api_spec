@@ -440,7 +440,7 @@ components:
         address:
           $ref: '#/components/schemas/Address'
         bankingAccount:
-          type: string
+          $ref: '#/components/schemas/Account'
         admissioned:
           type: boolean
         memberBankingAccount:
@@ -549,3 +549,36 @@ components:
         fee:
           type: integer
           format: int32
+    NewTransaction:
+      required:
+        - date
+        - amount
+      properties:
+        date:
+          type: string
+          format: date
+        amount:
+          type: number
+          format: double
+    Transaction:
+      allOf:
+        - required:
+          - id
+          properties:
+            id:
+              type: integer
+              format: int64
+        - $ref: '#/components/schemas/NewTransaction'
+    Account:
+      allOf:
+        - required:
+          - balance
+          - transactions
+          properties:
+            balance:
+              type: number
+              format: double
+            transactions:
+              type: array
+              items:
+                $ref: '#/components/schemas/Transaction'
