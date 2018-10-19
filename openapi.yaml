@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  version: 0.2.3
+  version: 0.3.0
   title: WWI16AMA - Spec
   license:
     name: APL 2
@@ -110,7 +110,7 @@ paths:
           description: The id of the Member to retrieve
           schema:
             type: integer
-            format: int64
+            format: int32
       responses:
         '200':
           description: Expected response to a valid request
@@ -142,7 +142,7 @@ paths:
           description: The id of the Member to update
           schema:
             type: integer
-            format: int64
+            format: int32
       requestBody:
         description: Member to update
         required: true
@@ -183,7 +183,7 @@ paths:
           description: The id of the Member to delete
           schema:
             type: integer
-            format: int64
+            format: int32
       responses:
         '204':
           description: Expected response to a valid request
@@ -199,20 +199,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  /fees:
-    get:
-      summary: List of fees
-      tags:
-        - Fees
-      responses:
-        '200':
-          description: An array of fees
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Fee'
   /planes:
     get:
       summary: List of all planes
@@ -316,7 +302,7 @@ paths:
           description: The id of the Plane to retrieve
           schema:
             type: integer
-            format: int64
+            format: int32
       responses:
         '200':
           description: Expected response to a valid request
@@ -350,7 +336,7 @@ paths:
           description: The id of the Plane to update
           schema:
             type: integer
-            format: int64
+            format: int32
       requestBody:
         description: Plane to update
         required: true
@@ -391,12 +377,163 @@ paths:
           description: The id of the Plane to delete
           schema:
             type: integer
-            format: int64
+            format: int32
       responses:
         '204':
           description: Expected response to a valid request
         '404':
           description: Response when no Plane found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /fees:
+    get:
+      summary: List of fees
+      tags:
+        - Fees
+      responses:
+        '200':
+          description: An array of fees
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Fee'
+  /accounts:
+    get:
+      summary: Paginated list of accounts without transactions.
+      tags:
+        - accounts
+      parameters:
+        - name: limit
+          in: query
+          description: How many items to return at one time (max 100)
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 20
+        - name: start
+          in: query
+          description: How many items to skip
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 0
+        - name: orderBy
+          in: query
+          description: The field by which the result is to be sorted
+          required: false
+          schema:
+            type: string
+            default: lastName
+        - name: direction
+          in: query
+          description: the sorting direction
+          required: false
+          schema:
+            type: string
+            enum: ["asc", "desc"]
+            default: "asc"
+      responses:
+        '200':
+          description: A paged array of Accounts
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                    $ref: '#/components/schemas/ListAccount'
+        '400':
+          description: This error is thrown when the parameters are faulty
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  '/accounts/{id}':
+    get:
+      summary: Info for a specific Account with his Transactions
+      tags:
+        - accounts
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the Member to retrieve
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
+        '404':
+          description: Response when no Account found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  '/accounts/{id}/transactions':
+    post:
+      summary: Add Transactions to an Account
+      tags:
+        - accounts / transactions
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the related Account
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        description: Transactions to add to the Account
+        required: true
+        content:
+          application/json:
+            schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/NewTransaction'
+      responses:
+        '200':
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transaction'
+        '400':
+          description: Response when request is wrong, i.e. if required fields are empty
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Response when no Member found
           content:
             application/json:
               schema:
@@ -460,7 +597,7 @@ components:
           properties:
             id:
               type: integer
-              format: int64
+              format: int32
         - $ref: '#/components/schemas/NewMember'
     ListMember:
       required:
@@ -536,7 +673,7 @@ components:
           properties:
             id:
               type: integer
-              format: int64
+              format: int32
         - $ref: '#/components/schemas/NewPlane'
     Fee:
       required:
@@ -549,3 +686,40 @@ components:
         fee:
           type: integer
           format: int32
+    ListAccount:
+      properties:
+        id:
+          type: integer
+          format: int32
+        balance:
+          type: number
+          format: double
+    Account:
+        allOf:
+        - properties:
+            transactions:
+              type: array
+              items:
+                $ref: '#/components/schemas/Transaction'
+        - $ref: '#/components/schemas/ListAccount'
+    NewTransaction:
+      required:
+        - amount
+        - type
+      properties:
+        amount:
+          type: number  
+          format: double
+        type:
+          type: string
+          enum: ["GEBÜHR", "AUFWANDSENTSCHÄDIGUNG", "ZAHLUNG"]
+    Transaction:
+      allOf:
+        - properties:
+            id:
+              type: integer
+              format: int64
+            timestamp:
+              type: string
+              format: date-time
+        - $ref: '#/components/schemas/NewTransaction'
