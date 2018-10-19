@@ -682,7 +682,7 @@ components:
       properties:
         category:
           type: string
-          enum: [ACTIVE, ACTIVEREDUCED, PASSIVE, HONORARYMEMBER]
+          enum: [ACTIVE, U20ACTIVE, PASSIVE, HONORARYMEMBER]
         fee:
           type: integer
           format: int32
