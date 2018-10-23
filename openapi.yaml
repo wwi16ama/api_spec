@@ -587,7 +587,10 @@ components:
         admissioned:
           type: boolean
         memberBankingAccount:
-          $ref: '#/components/schemas/AccountA'
+          properties:
+            id:
+              type: number
+              format: double
         offices:
           type: array
           items:
@@ -699,11 +702,6 @@ components:
           format: int32
         balance:
           type: number
-          format: double
-    AccountA:
-      properties:
-        id:
-          type: integer
           format: double
     Account:
         allOf:
