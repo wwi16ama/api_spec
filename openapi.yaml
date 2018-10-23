@@ -589,8 +589,8 @@ components:
         memberBankingAccount:
           properties:
             id:
-              type: number
-              format: double
+              type: integer
+              format: int32
         offices:
           type: array
           items:
