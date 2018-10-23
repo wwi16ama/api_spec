@@ -21,6 +21,8 @@ paths:
           schema:
             type: integer
             format: int32
+            minimum: 1
+            maximum: 100
             default: 20
         - name: start
           in: query
@@ -208,15 +210,17 @@ paths:
       parameters: 
         - name: limit
           in: query
-          description: How many items to return at one time (max 100)
+          description: How many planes to return at one time (max 100)
           required: false
           schema:
             type: integer
             format: int32
+            minimum: 1
+            maximum: 100
             default: 20
         - name: start
           in: query
-          description: How many items to skip
+          description: How many planes to skip
           required: false
           schema:
             type: integer
@@ -420,6 +424,8 @@ paths:
           schema:
             type: integer
             format: int32
+            minimum: 1
+            maximum: 100
             default: 20
         - name: start
           in: query
@@ -499,7 +505,7 @@ paths:
                 $ref: '#/components/schemas/Error'
   '/accounts/{id}/transactions':
     post:
-      summary: Add Transactions to an account
+      summary: Add transactions to an account
       tags:
         - Accounts / Transactions
       parameters:
