@@ -8,13 +8,13 @@ servers:
   - url: 'http://wwi16ama.feste-ip.net/backend_api/'
 paths:
   /members:
-    $ref: 'https://raw.githubusercontent.com/will-code-for-food-and-water/api_spec/master/members.yaml#/~1members'
+    $ref: 'https://raw.githubusercontent.com/wwi16ama/api_spec/master/members.yaml#/~1members'
   '/members/{id}':
-    $ref: 'https://raw.githubusercontent.com/will-code-for-food-and-water/api_spec/master/members.yaml#/~1members~1%7Bid%7D'
+    $ref: 'https://raw.githubusercontent.com/wwi16ama/api_spec/master/members.yaml#/~1members~1%7Bid%7D'
   /planes:
-    $ref: 'https://raw.githubusercontent.com/will-code-for-food-and-water/api_spec/master/planes.yaml#/~1planes'
+    $ref: 'https://raw.githubusercontent.com/wwi16ama/api_spec/master/planes.yaml#/~1planes'
   '/planes/{id}': 
-    $ref: 'https://raw.githubusercontent.com/will-code-for-food-and-water/api_spec/master/planes.yaml#/~1planes~1%7Bid%7D'
+    $ref: 'https://raw.githubusercontent.com/wwi16ama/api_spec/master/planes.yaml#/~1planes~1%7Bid%7D'
   /fees:
     get:
       summary: List of fees
@@ -169,13 +169,13 @@ paths:
 components:
   schemas:
     Member:
-      $ref: 'https://raw.githubusercontent.com/will-code-for-food-and-water/api_spec/master/members.yaml#/components/schemas/Member'
+      $ref: 'https://raw.githubusercontent.com/wwi16ama/api_spec/master/members.yaml#/components/schemas/Member'
     NewMember:
-      $ref: 'https://raw.githubusercontent.com/will-code-for-food-and-water/api_spec/master/members.yaml#/components/schemas/NewMember'
+      $ref: 'https://raw.githubusercontent.com/wwi16ama/api_spec/master/members.yaml#/components/schemas/NewMember'
     ListMember:
-      $ref: 'https://raw.githubusercontent.com/will-code-for-food-and-water/api_spec/master/members.yaml#/components/schemas/ListMember'
+      $ref: 'https://raw.githubusercontent.com/wwi16ama/api_spec/master/members.yaml#/components/schemas/ListMember'
     Address:
-      $ref: 'https://raw.githubusercontent.com/will-code-for-food-and-water/api_spec/master/members.yaml#/components/schemas/Address'
+      $ref: 'https://raw.githubusercontent.com/wwi16ama/api_spec/master/members.yaml#/components/schemas/Address'
     Error:
       required:
         - url
@@ -186,9 +186,9 @@ components:
         message:
           type: string
     NewPlane:
-      $ref: 'https://raw.githubusercontent.com/will-code-for-food-and-water/api_spec/master/planes.yaml#/components/schemas/NewPlane'      
+      $ref: 'https://raw.githubusercontent.com/wwi16ama/api_spec/master/planes.yaml#/components/schemas/NewPlane'      
     Plane:
-      $ref: 'https://raw.githubusercontent.com/will-code-for-food-and-water/api_spec/master/planes.yaml#/components/schemas/Plane'
+      $ref: 'https://raw.githubusercontent.com/wwi16ama/api_spec/master/planes.yaml#/components/schemas/Plane'
     Fee:
       required:
         - category
