@@ -3,7 +3,7 @@
     summary: List of all members
     operationId: listMembers
     tags:
-      - members
+      - Members
     parameters:
       - name: limit
         in: query
@@ -68,7 +68,7 @@
           schema:
             $ref: '#/components/schemas/NewMember'
     tags:
-      - members
+      - Members
     responses:
       '200':
         description: Responds with the Member and all his fields
@@ -93,7 +93,7 @@
     summary: Info for a specific Member
     operationId: showMemberById
     tags:
-      - members
+      - Members
     parameters:
       - name: id
         in: path
@@ -125,7 +125,7 @@
     summary: Update a specific Member
     operationId: updateMemberById
     tags:
-      - members
+      - Members
     parameters:
       - name: id
         in: path
@@ -166,7 +166,7 @@
     summary: Delete specific member
     operationId: deleteMemberById
     tags:
-      - members
+      - Members
     parameters:
       - name: id
         in: path
