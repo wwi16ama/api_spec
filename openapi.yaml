@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  version: 0.3.2
+  version: 0.3.3
   title: WWI16AMA - Spec
   license:
     name: APL 2
@@ -8,203 +8,13 @@ servers:
   - url: 'http://wwi16ama.feste-ip.net/backend_api/'
 paths:
   /members:
-    $ref: 'https://raw.githubusercontent.com/will-code-for-food-and-water/api_spec/master/test.yaml#/~1members'
+    $ref: 'https://raw.githubusercontent.com/will-code-for-food-and-water/api_spec/master/members.yaml#/~1members'
   '/members/{id}':
-    $ref: 'https://raw.githubusercontent.com/will-code-for-food-and-water/api_spec/master/test.yaml#/~1members~1%7Bid%7D'
+    $ref: 'https://raw.githubusercontent.com/will-code-for-food-and-water/api_spec/master/members.yaml#/~1members~1%7Bid%7D'
   /planes:
-    get:
-      summary: List of all planes
-      operationId: listPlanes
-      tags:
-        - Planes
-      parameters: 
-        - name: limit
-          in: query
-          description: How many items to return at one time (max 100)
-          required: false
-          schema:
-            type: integer
-            format: int32
-            default: 20
-        - name: start
-          in: query
-          description: How many items to skip
-          required: false
-          schema:
-            type: integer
-            format: int32
-            default: 0
-        - name: orderBy
-          in: query
-          description: The field by which the result is to be sorted
-          required: false
-          schema:
-            type: string
-            default: name
-        - name: direction
-          in: query
-          description: the sorting direction
-          required: false
-          schema:
-            type: string
-            enum: ["asc", "desc"]
-            default: "asc"
-      responses:
-        '200':
-          description: A paged array of planes
-          content:
-            application/json:
-              schema:
-                type: array
-                items: 
-                  $ref: '#/components/schemas/Plane'
-        '400':
-          description: This error is thrown when the parameters are faulty
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        default:
-          description: unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-    post:
-      summary: Create a Plane
-      operationId: createPlanes
-      requestBody:
-        description: Plane to add
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/NewPlane'
-      tags:
-        - Planes
-      responses:
-        '200':
-          description: Responds with the Plane and all his fields
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Plane'
-        '400':
-          description: Response when request is wrong, i.e. if required fields are empty
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        default:
-          description: unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-  '/planes/{id}':
-    get:
-      summary: Info for a specific Plane
-      operationId: showPlaneById
-      tags:
-        - Planes
-      parameters:
-        - name: id
-          in: path
-          required: true
-          description: The id of the Plane to retrieve
-          schema:
-            type: integer
-            format: int32
-      responses:
-        '200':
-          description: Expected response to a valid request
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Plane'
-        '404':
-          description: Response when no Plane found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        default:
-          description: unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-    put:
-      summary: Update a specific Plane
-      operationId: updatePlaneById
-      tags:
-        - Planes
-      parameters:
-        - name: id
-          in: path
-          required: true
-          description: The id of the Plane to update
-          schema:
-            type: integer
-            format: int32
-      requestBody:
-        description: Plane to update
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/NewPlane'
-      responses:
-        '204':
-          description: Expected response to a valid request
-        '400':
-          description: Response when request is wrong, i.e. if required fields are empty
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        '404':
-          description: Response when no Plane found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        default:
-          description: unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-    delete:
-      summary: Delete specific plane
-      operationId: deletePlaneById
-      tags:
-        - Planes
-      parameters:
-        - name: id
-          in: path
-          required: true
-          description: The id of the Plane to delete
-          schema:
-            type: integer
-            format: int32
-      responses:
-        '204':
-          description: Expected response to a valid request
-        '404':
-          description: Response when no Plane found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        default:
-          description: unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
+    $ref: 'https://raw.githubusercontent.com/will-code-for-food-and-water/api_spec/master/planes.yaml#/~1planes'
+  '/planes/{id}': 
+    $ref: 'https://raw.githubusercontent.com/will-code-for-food-and-water/api_spec/master/planes.yaml#/~1planes~1%7Bid%7D'
   /fees:
     get:
       summary: List of fees
@@ -359,13 +169,13 @@ paths:
 components:
   schemas:
     Member:
-      $ref: 'https://raw.githubusercontent.com/will-code-for-food-and-water/api_spec/master/test.yaml#/components/schemas/Member'
+      $ref: 'https://raw.githubusercontent.com/will-code-for-food-and-water/api_spec/master/members.yaml#/components/schemas/Member'
     NewMember:
-      $ref: 'https://raw.githubusercontent.com/will-code-for-food-and-water/api_spec/master/test.yaml#/components/schemas/NewMember'
+      $ref: 'https://raw.githubusercontent.com/will-code-for-food-and-water/api_spec/master/members.yaml#/components/schemas/NewMember'
     ListMember:
-      $ref: 'https://raw.githubusercontent.com/will-code-for-food-and-water/api_spec/master/test.yaml#/components/schemas/ListMember'
+      $ref: 'https://raw.githubusercontent.com/will-code-for-food-and-water/api_spec/master/members.yaml#/components/schemas/ListMember'
     Address:
-      $ref: 'https://raw.githubusercontent.com/will-code-for-food-and-water/api_spec/master/test.yaml#/components/schemas/Address'
+      $ref: 'https://raw.githubusercontent.com/will-code-for-food-and-water/api_spec/master/members.yaml#/components/schemas/Address'
     Error:
       required:
         - url
@@ -376,30 +186,9 @@ components:
         message:
           type: string
     NewPlane:
-      required:
-        - number
-        - name
-        - position
-        - neededAuthorization
-      properties:
-        number:
-          type: string
-        name:
-          type: string
-        position:
-          type: string
-        neededAuthorization:
-          type: string
-          enum: [PPLA, PPLB]
+      $ref: 'https://raw.githubusercontent.com/will-code-for-food-and-water/api_spec/master/planes.yaml#/components/schemas/NewPlane'      
     Plane:
-      allOf:
-        - required:
-          - id
-          properties:
-            id:
-              type: integer
-              format: int32
-        - $ref: '#/components/schemas/NewPlane'
+      $ref: 'https://raw.githubusercontent.com/will-code-for-food-and-water/api_spec/master/planes.yaml#/components/schemas/Plane'
     Fee:
       required:
         - category
