@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  version: 0.3.1
+  version: 0.3.2
   title: WWI16AMA - Spec
   license:
     name: APL 2
@@ -223,7 +223,7 @@ paths:
     get:
       summary: Paginated list of accounts without transactions.
       tags:
-        - accounts
+        - Accounts
       parameters:
         - name: limit
           in: query
@@ -281,7 +281,7 @@ paths:
     get:
       summary: Info for a specific Account with his Transactions
       tags:
-        - accounts
+        - Accounts
       parameters:
         - name: id
           in: path
@@ -313,7 +313,7 @@ paths:
     post:
       summary: Add Transactions to an Account
       tags:
-        - accounts / transactions
+        - Accounts / Transactions
       parameters:
         - name: id
           in: path
