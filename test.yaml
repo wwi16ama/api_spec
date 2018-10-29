@@ -1,192 +1,478 @@
-/members:
-    get:
-      summary: List of all members
-      operationId: listMembers
-      tags:
-        - members
-      parameters:
-        - name: limit
-          in: query
-          description: How many items to return at one time (max 100)
-          required: false
-          schema:
-            type: integer
-            format: int32
-            default: 20
-        - name: start
-          in: query
-          description: How many items to skip
-          required: false
-          schema:
-            type: integer
-            format: int32
-            default: 0
-        - name: orderBy
-          in: query
-          description: The field by which the result is to be sorted
-          required: false
-          schema:
-            type: string
-            default: lastName
-        - name: direction
-          in: query
-          description: the sorting direction
-          required: false
-          schema:
-            type: string
-            enum: ["asc", "desc"]
-            default: "asc"
-      responses:
-        '200':
-          description: A paged array of members
-          content:
-            application/json:
+paths: 
+    /members:
+        get:
+          summary: List of all members
+          operationId: listMembers
+          tags:
+            - members
+          parameters:
+            - name: limit
+              in: query
+              description: How many items to return at one time (max 100)
+              required: false
               schema:
-                type: array
-                items:
-                    $ref: '#/components/schemas/ListMember'
-        '400':
-          description: This error is thrown when the parameters are faulty
-          content:
-            application/json:
+                type: integer
+                format: int32
+                default: 20
+            - name: start
+              in: query
+              description: How many items to skip
+              required: false
               schema:
-                $ref: '#/components/schemas/Error'
-        default:
-          description: unexpected error
-          content:
-            application/json:
+                type: integer
+                format: int32
+                default: 0
+            - name: orderBy
+              in: query
+              description: The field by which the result is to be sorted
+              required: false
               schema:
-                $ref: '#/components/schemas/Error'
-    post:
-      summary: Create a member
-      operationId: createMembers
-      requestBody:
-        description: Member to add
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/NewMember'
-      tags:
-        - members
-      responses:
-        '200':
-          description: Responds with the Member and all his fields
-          content:
-            application/json:
+                type: string
+                default: lastName
+            - name: direction
+              in: query
+              description: the sorting direction
+              required: false
               schema:
-                $ref: '#/components/schemas/Member'
-        '400':
-          description: Response when request is wrong, i.e. if required fields are empty
-          content:
-            application/json:
+                type: string
+                enum: ["asc", "desc"]
+                default: "asc"
+          responses:
+            '200':
+              description: A paged array of members
+              content:
+                application/json:
+                  schema:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/ListMember'
+            '400':
+              description: This error is thrown when the parameters are faulty
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/Error'
+            default:
+              description: unexpected error
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/Error'
+        post:
+          summary: Create a member
+          operationId: createMembers
+          requestBody:
+            description: Member to add
+            required: true
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/NewMember'
+          tags:
+            - members
+          responses:
+            '200':
+              description: Responds with the Member and all his fields
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/Member'
+            '400':
+              description: Response when request is wrong, i.e. if required fields are empty
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/Error'
+            default:
+              description: unexpected error
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/Error'
+    '/members/{id}':
+        get:
+          summary: Info for a specific Member
+          operationId: showMemberById
+          tags:
+            - members
+          parameters:
+            - name: id
+              in: path
+              required: true
+              description: The id of the Member to retrieve
               schema:
-                $ref: '#/components/schemas/Error'
-        default:
-          description: unexpected error
-          content:
-            application/json:
+                type: integer
+                format: int32
+          responses:
+            '200':
+              description: Expected response to a valid request
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/Member'
+            '404':
+              description: Response when no Member found
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/Error'
+            default:
+              description: unexpected error
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/Error'
+        put:
+          summary: Update a specific Member
+          operationId: updateMemberById
+          tags:
+            - members
+          parameters:
+            - name: id
+              in: path
+              required: true
+              description: The id of the Member to update
               schema:
-                $ref: '#/components/schemas/Error'
-'/members/{id}':
-    get:
-      summary: Info for a specific Member
-      operationId: showMemberById
-      tags:
-        - members
-      parameters:
-        - name: id
-          in: path
-          required: true
-          description: The id of the Member to retrieve
-          schema:
-            type: integer
-            format: int32
-      responses:
-        '200':
-          description: Expected response to a valid request
-          content:
-            application/json:
+                type: integer
+                format: int32
+          requestBody:
+            description: Member to update
+            required: true
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/NewMember'
+          responses:
+            '204':
+              description: Expected response to a valid request
+            '400':
+              description: Response when request is wrong, i.e. if required fields are empty
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/Error'
+            '404':
+              description: Response when no Member found
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/Error'
+            default:
+              description: unexpected error
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/Error'
+        delete:
+          summary: Delete specific member
+          operationId: deleteMemberById
+          tags:
+            - members
+          parameters:
+            - name: id
+              in: path
+              required: true
+              description: The id of the Member to delete
               schema:
-                $ref: '#/components/schemas/Member'
-        '404':
-          description: Response when no Member found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        default:
-          description: unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-    put:
-      summary: Update a specific Member
-      operationId: updateMemberById
-      tags:
-        - members
-      parameters:
-        - name: id
-          in: path
-          required: true
-          description: The id of the Member to update
-          schema:
-            type: integer
-            format: int32
-      requestBody:
-        description: Member to update
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/NewMember'
-      responses:
-        '204':
-          description: Expected response to a valid request
-        '400':
-          description: Response when request is wrong, i.e. if required fields are empty
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        '404':
-          description: Response when no Member found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        default:
-          description: unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-    delete:
-      summary: Delete specific member
-      operationId: deleteMemberById
-      tags:
-        - members
-      parameters:
-        - name: id
-          in: path
-          required: true
-          description: The id of the Member to delete
-          schema:
-            type: integer
-            format: int32
-      responses:
-        '204':
-          description: Expected response to a valid request
-        '404':
-          description: Response when no Member found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        default:
-          description: unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
+                type: integer
+                format: int32
+          responses:
+            '204':
+              description: Expected response to a valid request
+            '404':
+              description: Response when no Member found
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/Error'
+            default:
+              description: unexpected error
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    NewMember:
+      required:
+        - firstName
+        - lastName
+        - dateOfBirth
+        - gender
+        - status
+        - email
+        - address
+        - bankingAccount
+        - admissioned
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        dateOfBirth:
+          type: string
+          format: date
+        gender:
+          type: string
+          enum: [MALE, FEMALE]
+        status:
+          type: string
+          enum: [ACTIVE, PASSIVE, HONORARYMEMBER]
+        email:
+          type: string
+          format: email
+        address:
+          $ref: '#/components/schemas/Address'
+        bankingAccount:
+          type: string
+        admissioned:
+          type: boolean
+        memberBankingAccount:
+          type: string
+        offices:
+          type: array
+          items:
+            $ref: '#/components/schemas/Office'
+        flightAuthorization:
+          type: array
+          items:
+            $ref: '#/components/schemas/Authorization'
+    Member:
+      allOf:
+        - required:
+          - id
+          properties:
+            id:
+              type: integer
+              format: int32
+        - $ref: '#/components/schemas/NewMember'
+    ListMember:
+      required:
+        - id
+        - firstName
+        - lastName
+      properties:
+        id:
+          type: integer
+          format: int32
+        firstName:
+          type: string
+        lastName:
+          type: string
+    Error:
+      required:
+        - url
+        - message
+      properties:
+        url:
+          type: string
+        message:
+          type: string
+    Address:
+      required:
+        - postalCode
+        - streetAddress
+        - city
+      properties:
+        postalCode:
+          type: integer
+          format: int32
+        streetAddress:
+          type: string
+        city:
+          type: string
+    Authorization:
+      properties:
+        authorization:
+          type: string
+          enum: [PPLA, PPLB, BZFI, BZFII, LEHRBEFUGNIS]
+        dateOfIssue:
+          type: string
+          format: date
+        expires:
+          type: string
+          format: date
+    Office:
+      properties:
+        title:
+          type: string
+          enum: [VORSTANDSVORSITZENDER, SYSTEMADMINISTRATOR, KASSIERER, FLUGWART, IMBETRIEBSKONTROLLTURMARBEITEND]
+    NewPlane:
+      required:
+        - number
+        - name
+        - position
+        - neededAuthorization
+      properties:
+        number:
+          type: string
+        name:
+          type: string
+        position:
+          type: string
+        neededAuthorization:
+          type: string
+          enum: [PPLA, PPLB]
+    Plane:
+      allOf:
+        - required:
+          - id
+          properties:
+            id:
+              type: integer
+              format: int32
+        - $ref: '#/components/schemas/NewPlane'
+    Fee:
+      required:
+        - category
+        - fee
+      properties:
+        category:
+          type: string
+          enum: [ACTIVE, U20ACTIVE, PASSIVE, HONORARYMEMBER]
+        fee:
+          type: integer
+          format: int32
+    ListAccount:
+      properties:
+        id:
+          type: integer
+          format: int32
+        balance:
+          type: number
+          format: double
+    Account:
+        allOf:
+        - properties:
+            transactions:
+              type: array
+              items:
+                $ref: '#/components/schemas/Transaction'
+        - $ref: '#/components/schemas/ListAccount'
+    NewTransaction:
+      required:
+        - amount
+        - type
+      properties:
+        amount:
+          type: number  
+          format: double
+        type:
+          type: string
+          enum: ["GEBÜHR", "AUFWANDSENTSCHÄDIGUNG", "ZAHLUNG"]
+    Transaction:
+      allOf:
+        - properties:
+            id:
+              type: integer
+              format: int64
+            timestamp:
+              type: string
+              format: date-time
+        - $ref: '#/components/schemas/NewTransaction'
+components:
+  schemas:
+    NewMember:
+      required:
+        - firstName
+        - lastName
+        - dateOfBirth
+        - gender
+        - status
+        - email
+        - address
+        - bankingAccount
+        - admissioned
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        dateOfBirth:
+          type: string
+          format: date
+        gender:
+          type: string
+          enum: [MALE, FEMALE]
+        status:
+          type: string
+          enum: [ACTIVE, PASSIVE, HONORARYMEMBER]
+        email:
+          type: string
+          format: email
+        address:
+          $ref: '#/components/schemas/Address'
+        bankingAccount:
+          type: string
+        admissioned:
+          type: boolean
+        memberBankingAccount:
+          type: string
+        offices:
+          type: array
+          items:
+            $ref: '#/components/schemas/Office'
+        flightAuthorization:
+          type: array
+          items:
+            $ref: '#/components/schemas/Authorization'
+    Member:
+      allOf:
+        - required:
+          - id
+          properties:
+            id:
+              type: integer
+              format: int32
+        - $ref: '#/components/schemas/NewMember'
+    ListMember:
+      required:
+        - id
+        - firstName
+        - lastName
+      properties:
+        id:
+          type: integer
+          format: int32
+        firstName:
+          type: string
+        lastName:
+          type: string
+    Error:
+      required:
+        - url
+        - message
+      properties:
+        url:
+          type: string
+        message:
+          type: string
+    Address:
+      required:
+        - postalCode
+        - streetAddress
+        - city
+      properties:
+        postalCode:
+          type: integer
+          format: int32
+        streetAddress:
+          type: string
+        city:
+          type: string
+    Authorization:
+      properties:
+        authorization:
+          type: string
+          enum: [PPLA, PPLB, BZFI, BZFII, LEHRBEFUGNIS]
+        dateOfIssue:
+          type: string
+          format: date
+        expires:
+          type: string
+          format: date
+    Office:
+      properties:
+        title:
+          type: string
+          enum: [VORSTANDSVORSITZENDER, SYSTEMADMINISTRATOR, KASSIERER, FLUGWART, IMBETRIEBSKONTROLLTURMARBEITEND]
