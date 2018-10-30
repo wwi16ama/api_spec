@@ -7,7 +7,7 @@
     parameters:
       - name: limit
         in: query
-        description: How many items to return at one time (max 100)
+        description: How many items to return at one time
         required: false
         schema:
           type: integer
@@ -71,7 +71,7 @@
       - Members
     responses:
       '200':
-        description: Responds with the Member and all his fields
+        description: Responds with the member and all his fields
         content:
           application/json:
             schema:
@@ -90,7 +90,7 @@
               $ref: 'https://raw.githubusercontent.com/wwi16ama/api_spec/master/openapi.yaml/#/components/schemas/Error'
 '/members/{id}':
   get:
-    summary: Info for a specific Member
+    summary: Info for a specific member
     operationId: showMemberById
     tags:
       - Members
@@ -98,7 +98,7 @@
       - name: id
         in: path
         required: true
-        description: The id of the Member to retrieve
+        description: The id of the member to retrieve
         schema:
           type: integer
           format: int32
@@ -110,7 +110,7 @@
             schema:
               $ref: '#/components/schemas/Member'
       '404':
-        description: Response when no Member found
+        description: Response when no member found
         content:
           application/json:
             schema:
@@ -122,7 +122,7 @@
             schema:
               $ref: 'https://raw.githubusercontent.com/wwi16ama/api_spec/master/openapi.yaml/#/components/schemas/Error'
   put:
-    summary: Update a specific Member
+    summary: Update a specific member
     operationId: updateMemberById
     tags:
       - Members
@@ -130,7 +130,7 @@
       - name: id
         in: path
         required: true
-        description: The id of the Member to update
+        description: The id of the member to update
         schema:
           type: integer
           format: int32
@@ -151,7 +151,7 @@
             schema:
               $ref: 'https://raw.githubusercontent.com/wwi16ama/api_spec/master/openapi.yaml/#/components/schemas/Error'
       '404':
-        description: Response when no Member found
+        description: Response when no member found
         content:
           application/json:
             schema:
@@ -171,7 +171,7 @@
       - name: id
         in: path
         required: true
-        description: The id of the Member to delete
+        description: The id of the member to delete
         schema:
           type: integer
           format: int32
@@ -179,7 +179,7 @@
       '204':
         description: Expected response to a valid request
       '404':
-        description: Response when no Member found
+        description: Response when no member found
         content:
           application/json:
             schema:
