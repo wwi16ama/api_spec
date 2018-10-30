@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  version: 0.3.3
+  version: 0.3.4
   title: WWI16AMA - Spec
   license:
     name: APL 2
