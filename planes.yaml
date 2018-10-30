@@ -1,0 +1,221 @@
+/planes:
+  get:
+    summary: List of all planes
+    operationId: listPlanes
+    tags:
+      - Planes
+    parameters: 
+      - name: limit
+        in: query
+        description: How many planes to return at one time
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 20
+      - name: start
+        in: query
+        description: How many planes to skip
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: orderBy
+        in: query
+        description: The field by which the result is to be sorted
+        required: false
+        schema:
+          type: string
+          default: name
+      - name: direction
+        in: query
+        description: the sorting direction
+        required: false
+        schema:
+          type: string
+          enum: ["asc", "desc"]
+          default: "asc"
+    responses:
+      '200':
+        description: A paged array of planes
+        content:
+          application/json:
+            schema:
+              type: array
+              items: 
+                $ref: '#/components/schemas/Plane'
+      '400':
+        description: This error is thrown when the parameters are faulty
+        content:
+          application/json:
+            schema:
+              $ref: 'https://raw.githubusercontent.com/wwi16ama/api_spec/master/openapi.yaml#/components/schemas/Error'
+      default:
+        description: unexpected error
+        content:
+          application/json:
+            schema:
+              $ref: 'https://raw.githubusercontent.com/wwi16ama/api_spec/master/openapi.yaml#/components/schemas/Error'
+  post:
+    summary: Create a plane
+    operationId: createPlanes
+    requestBody:
+      description: Plane to add
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/NewPlane'
+    tags:
+      - Planes
+    responses:
+      '200':
+        description: Responds with the plane and all his fields
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Plane'
+      '400':
+        description: Response when request is wrong, i.e. if required fields are empty
+        content:
+          application/json:
+            schema:
+              $ref: 'https://raw.githubusercontent.com/wwi16ama/api_spec/master/openapi.yaml#/components/schemas/Error'
+      default:
+        description: unexpected error
+        content:
+          application/json:
+            schema:
+              $ref: 'https://raw.githubusercontent.com/wwi16ama/api_spec/master/openapi.yaml#/components/schemas/Error'
+'/planes/{id}':
+  get:
+    summary: Info for a specific plane
+    operationId: showPlaneById
+    tags:
+      - Planes
+    parameters:
+      - name: id
+        in: path
+        required: true
+        description: The id of the plane to retrieve
+        schema:
+          type: integer
+          format: int32
+    responses:
+      '200':
+        description: Expected response to a valid request
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/Plane'
+      '404':
+        description: Response when no plane found
+        content:
+          application/json:
+            schema:
+              $ref: 'https://raw.githubusercontent.com/wwi16ama/api_spec/master/openapi.yaml#/components/schemas/Error'
+      default:
+        description: unexpected error
+        content:
+          application/json:
+            schema:
+              $ref: 'https://raw.githubusercontent.com/wwi16ama/api_spec/master/openapi.yaml#/components/schemas/Error'
+  put:
+    summary: Update a specific plane
+    operationId: updatePlaneById
+    tags:
+      - Planes
+    parameters:
+      - name: id
+        in: path
+        required: true
+        description: The id of the plane to update
+        schema:
+          type: integer
+          format: int32
+    requestBody:
+      description: plane to update
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/NewPlane'
+    responses:
+      '204':
+        description: Expected response to a valid request
+      '400':
+        description: Response when request is wrong, i.e. if required fields are empty
+        content:
+          application/json:
+            schema:
+              $ref: 'https://raw.githubusercontent.com/wwi16ama/api_spec/master/openapi.yaml#/components/schemas/Error'
+      '404':
+        description: Response when no plane found
+        content:
+          application/json:
+            schema:
+              $ref: 'https://raw.githubusercontent.com/wwi16ama/api_spec/master/openapi.yaml#/components/schemas/Error'
+      default:
+        description: unexpected error
+        content:
+          application/json:
+            schema:
+              $ref: 'https://raw.githubusercontent.com/wwi16ama/api_spec/master/openapi.yaml#/components/schemas/Error'
+  delete:
+    summary: Delete specific plane
+    operationId: deletePlaneById
+    tags:
+      - Planes
+    parameters:
+      - name: id
+        in: path
+        required: true
+        description: The id of the plane to delete
+        schema:
+          type: integer
+          format: int32
+    responses:
+      '204':
+        description: Expected response to a valid request
+      '404':
+        description: Response when no plane found
+        content:
+          application/json:
+            schema:
+              $ref: 'https://raw.githubusercontent.com/wwi16ama/api_spec/master/openapi.yaml#/components/schemas/Error'
+      default:
+        description: unexpected error
+        content:
+          application/json:
+            schema:
+              $ref: 'https://raw.githubusercontent.com/wwi16ama/api_spec/master/openapi.yaml#/components/schemas/Error'
+components:
+  schemas:
+    NewPlane:
+      required:
+        - number
+        - name
+        - position
+        - neededAuthorization
+      properties:
+        number:
+          type: string
+        name:
+          type: string
+        position:
+          type: string
+        neededAuthorization:
+          type: string
+          enum: [PPLA, PPLB]
+    Plane:
+      allOf:
+        - required:
+          - id
+          properties:
+            id:
+              type: integer
+              format: int32
+        - $ref: '#/components/schemas/NewPlane'
