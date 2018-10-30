@@ -7,7 +7,7 @@
     parameters: 
       - name: limit
         in: query
-        description: How many items to return at one time (max 100)
+        description: How many planes to return at one time
         required: false
         schema:
           type: integer
@@ -15,7 +15,7 @@
           default: 20
       - name: start
         in: query
-        description: How many items to skip
+        description: How many planes to skip
         required: false
         schema:
           type: integer
@@ -58,7 +58,7 @@
             schema:
               $ref: 'https://raw.githubusercontent.com/wwi16ama/api_spec/master/openapi.yaml#/components/schemas/Error'
   post:
-    summary: Create a Plane
+    summary: Create a plane
     operationId: createPlanes
     requestBody:
       description: Plane to add
@@ -71,7 +71,7 @@
       - Planes
     responses:
       '200':
-        description: Responds with the Plane and all his fields
+        description: Responds with the plane and all his fields
         content:
           application/json:
             schema:
@@ -90,7 +90,7 @@
               $ref: 'https://raw.githubusercontent.com/wwi16ama/api_spec/master/openapi.yaml#/components/schemas/Error'
 '/planes/{id}':
   get:
-    summary: Info for a specific Plane
+    summary: Info for a specific plane
     operationId: showPlaneById
     tags:
       - Planes
@@ -98,7 +98,7 @@
       - name: id
         in: path
         required: true
-        description: The id of the Plane to retrieve
+        description: The id of the plane to retrieve
         schema:
           type: integer
           format: int32
@@ -112,7 +112,7 @@
               items:
                 $ref: '#/components/schemas/Plane'
       '404':
-        description: Response when no Plane found
+        description: Response when no plane found
         content:
           application/json:
             schema:
@@ -124,7 +124,7 @@
             schema:
               $ref: 'https://raw.githubusercontent.com/wwi16ama/api_spec/master/openapi.yaml#/components/schemas/Error'
   put:
-    summary: Update a specific Plane
+    summary: Update a specific plane
     operationId: updatePlaneById
     tags:
       - Planes
@@ -132,12 +132,12 @@
       - name: id
         in: path
         required: true
-        description: The id of the Plane to update
+        description: The id of the plane to update
         schema:
           type: integer
           format: int32
     requestBody:
-      description: Plane to update
+      description: plane to update
       required: true
       content:
         application/json:
@@ -153,7 +153,7 @@
             schema:
               $ref: 'https://raw.githubusercontent.com/wwi16ama/api_spec/master/openapi.yaml#/components/schemas/Error'
       '404':
-        description: Response when no Plane found
+        description: Response when no plane found
         content:
           application/json:
             schema:
@@ -173,7 +173,7 @@
       - name: id
         in: path
         required: true
-        description: The id of the Plane to delete
+        description: The id of the plane to delete
         schema:
           type: integer
           format: int32
@@ -181,7 +181,7 @@
       '204':
         description: Expected response to a valid request
       '404':
-        description: Response when no Plane found
+        description: Response when no plane found
         content:
           application/json:
             schema:
