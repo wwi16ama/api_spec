@@ -228,7 +228,7 @@ components:
           format: double
         type:
           type: string
-          enum: ["GEBÜHR", "AUFWANDSENTSCHÄDIGUNG", "ZAHLUNG"]
+          enum: ["MITGLIEDSBEITRAG", "GEBÜHRFLUGZEUG", "GUTSCHRIFTAMT", "GUTSCHRIFTLEISTUNG","EINZAHLUNG"]
     Transaction:
       allOf:
         - properties:
