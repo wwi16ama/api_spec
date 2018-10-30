@@ -200,6 +200,8 @@ components:
         - name
         - position
         - neededAuthorization
+        - pricePerBookedHour
+        - pricePerFlightHour
       properties:
         number:
           type: string
@@ -210,6 +212,12 @@ components:
         neededAuthorization:
           type: string
           enum: [PPLA, PPLB]
+        pricePerBookedHour:
+          type: number
+          format: double
+        pricePerFlightHour:
+          type: number
+          format: double
     Plane:
       allOf:
         - required:
