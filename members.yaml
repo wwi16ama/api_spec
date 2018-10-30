@@ -247,7 +247,7 @@ components:
             services:
               type: array
               items:
-                $ref: 'https://raw.githubusercontent.com/wwi16ama/api_spec/master/openapi.yaml/#/components/schemas/Service'
+                $ref: 'https://raw.githubusercontent.com/wwi16ama/api_spec/master/openapi.yaml#/components/schemas/Service'
         - $ref: '#/components/schemas/NewMember'
     ListMember:
       required:
