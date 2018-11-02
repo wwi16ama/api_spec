@@ -254,6 +254,7 @@ components:
         - id
         - firstName
         - lastName
+        - memberBankingAccountId
       properties:
         id:
           type: integer
@@ -262,6 +263,9 @@ components:
           type: string
         lastName:
           type: string
+        memberBankingAccountId
+          type: integer
+          format: int32
     Address:
       required:
         - postalCode
