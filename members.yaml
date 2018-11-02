@@ -226,11 +226,6 @@ components:
           type: string
         admissioned:
           type: boolean
-        memberBankingAccount:
-          properties:
-            id:
-              type: integer
-              format: int32
         offices:
           type: array
           items:
@@ -240,6 +235,7 @@ components:
           items:
             $ref: '#/components/schemas/Authorization'
     Member:
+      description: `services` ist noch vorläufig
       allOf:
         - required:
           - id
@@ -247,6 +243,11 @@ components:
             id:
               type: integer
               format: int32
+          memberBankingAccount:
+            properties:
+              id:
+                type: integer
+                format: int32
             services:
               type: array
               items:
