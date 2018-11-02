@@ -227,7 +227,10 @@ components:
         admissioned:
           type: boolean
         memberBankingAccount:
-          type: string
+          properties:
+            id:
+              type: integer
+              format: int32
         offices:
           type: array
           items:
