@@ -8,13 +8,13 @@ servers:
   - url: 'http://will-code-for-food-and-water.feste-ip.net/backend_api/'
 paths:
   /members:
-    $ref: 'https://raw.githubusercontent.com/will-code-for-food-and-water/api_spec/master/members.yaml#/~1members'
+    $ref: 'https://raw.githubusercontent.com/will-code-for-food-and-water/api_spec/master/members.yaml#/paths/~1members'
   '/members/{id}':
-    $ref: 'https://raw.githubusercontent.com/will-code-for-food-and-water/api_spec/master/members.yaml#/~1members~1%7Bid%7D'
+    $ref: 'https://raw.githubusercontent.com/will-code-for-food-and-water/api_spec/master/members.yaml#/paths/~1members~1%7Bid%7D'
   /planes:
-    $ref: 'https://raw.githubusercontent.com/will-code-for-food-and-water/api_spec/master/planes.yaml#/~1planes'
-  '/planes/{id}': 
-    $ref: 'https://raw.githubusercontent.com/will-code-for-food-and-water/api_spec/master/planes.yaml#/~1planes~1%7Bid%7D'
+    $ref: 'https://raw.githubusercontent.com/will-code-for-food-and-water/api_spec/master/planes.yaml#/paths/~1planes'
+  '/planes/{id}':
+    $ref: 'https://raw.githubusercontent.com/will-code-for-food-and-water/api_spec/master/planes.yaml#/paths/~1planes~1%7Bid%7D'
   /fees:
     get:
       summary: List of fees
