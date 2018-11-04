@@ -55,13 +55,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: 'https://raw.githubusercontent.com/will-code-for-food-and-water/api_spec/master/openapi.yaml#/components/schemas/Error'
+                $ref: 'https://raw.githubusercontent.com/wwi16ama/api_spec/master/openapi.yaml#/components/schemas/Error'
         default:
           description: unexpected error
           content:
             application/json:
               schema:
-                $ref: 'https://raw.githubusercontent.com/will-code-for-food-and-water/api_spec/master/openapi.yaml#/components/schemas/Error'
+                $ref: 'https://raw.githubusercontent.com/wwi16ama/api_spec/master/openapi.yaml#/components/schemas/Error'
     post:
       summary: Create a plane
       operationId: createPlanes
@@ -86,13 +86,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: 'https://raw.githubusercontent.com/will-code-for-food-and-water/api_spec/master/openapi.yaml#/components/schemas/Error'
+                $ref: 'https://raw.githubusercontent.com/wwi16ama/api_spec/master/openapi.yaml#/components/schemas/Error'
         default:
           description: unexpected error
           content:
             application/json:
               schema:
-                $ref: 'https://raw.githubusercontent.com/will-code-for-food-and-water/api_spec/master/openapi.yaml#/components/schemas/Error'
+                $ref: 'https://raw.githubusercontent.com/wwi16ama/api_spec/master/openapi.yaml#/components/schemas/Error'
   '/planes/{id}':
     get:
       summary: Info for a specific plane
@@ -121,13 +121,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: 'https://raw.githubusercontent.com/will-code-for-food-and-water/api_spec/master/openapi.yaml#/components/schemas/Error'
+                $ref: 'https://raw.githubusercontent.com/wwi16ama/api_spec/master/openapi.yaml#/components/schemas/Error'
         default:
           description: unexpected error
           content:
             application/json:
               schema:
-                $ref: 'https://raw.githubusercontent.com/will-code-for-food-and-water/api_spec/master/openapi.yaml#/components/schemas/Error'
+                $ref: 'https://raw.githubusercontent.com/wwi16ama/api_spec/master/openapi.yaml#/components/schemas/Error'
     put:
       summary: Update a specific plane
       operationId: updatePlaneById
@@ -156,19 +156,19 @@ paths:
           content:
             application/json:
               schema:
-                $ref: 'https://raw.githubusercontent.com/will-code-for-food-and-water/api_spec/master/openapi.yaml#/components/schemas/Error'
+                $ref: 'https://raw.githubusercontent.com/wwi16ama/api_spec/master/openapi.yaml#/components/schemas/Error'
         '404':
           description: Response when no plane found
           content:
             application/json:
               schema:
-                $ref: 'https://raw.githubusercontent.com/will-code-for-food-and-water/api_spec/master/openapi.yaml#/components/schemas/Error'
+                $ref: 'https://raw.githubusercontent.com/wwi16ama/api_spec/master/openapi.yaml#/components/schemas/Error'
         default:
           description: unexpected error
           content:
             application/json:
               schema:
-                $ref: 'https://raw.githubusercontent.com/will-code-for-food-and-water/api_spec/master/openapi.yaml#/components/schemas/Error'
+                $ref: 'https://raw.githubusercontent.com/wwi16ama/api_spec/master/openapi.yaml#/components/schemas/Error'
     delete:
       summary: Delete specific plane
       operationId: deletePlaneById
@@ -190,13 +190,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: 'https://raw.githubusercontent.com/will-code-for-food-and-water/api_spec/master/openapi.yaml#/components/schemas/Error'
+                $ref: 'https://raw.githubusercontent.com/wwi16ama/api_spec/master/openapi.yaml#/components/schemas/Error'
         default:
           description: unexpected error
           content:
             application/json:
               schema:
-                $ref: 'https://raw.githubusercontent.com/will-code-for-food-and-water/api_spec/master/openapi.yaml#/components/schemas/Error'
+                $ref: 'https://raw.githubusercontent.com/wwi16ama/api_spec/master/openapi.yaml#/components/schemas/Error'
 components:
   schemas:
     NewPlane:
