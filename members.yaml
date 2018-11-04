@@ -267,7 +267,7 @@ components:
           type: string
         lastName:
           type: string
-        memberBankingAccountId
+        memberBankingAccountId:
           type: integer
           format: int32
     Address:
