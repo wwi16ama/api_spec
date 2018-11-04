@@ -232,14 +232,14 @@ components:
           format: int32
     Credit:
       required:
-        - service
+        - serviceName
         - amount
         - period
       properties:
         id:
           type: integer
           format: int32
-        service:
+        serviceName:
           $ref: '#/components/schemas/ServiceName'
         amount:
           type: number
