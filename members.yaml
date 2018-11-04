@@ -235,7 +235,7 @@ components:
           items:
             $ref: '#/components/schemas/Authorization'
     Member:
-      description: `services` ist noch vorläufig
+      description: services ist noch vorläufig
       allOf:
         - required:
           - id
