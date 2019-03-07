@@ -241,7 +241,7 @@ components:
           items:
             $ref: '#/components/schemas/Authorization'
         password:
-        type: string
+          type: string
     Member:
       description: services ist noch vorläufig
       allOf:
