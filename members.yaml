@@ -208,6 +208,7 @@ components:
         - address
         - bankingAccount
         - admissioned
+        - password
       properties:
         firstName:
           type: string
@@ -239,6 +240,8 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Authorization'
+        password:
+        type: string
     Member:
       description: services ist noch vorläufig
       allOf:
