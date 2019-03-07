@@ -15,7 +15,7 @@ paths:
       tags: 
       - Login
       responses:
-        '200':
+        '204':
           description: When userID and password are correct
         '401':
           description: When userID and password are not correct
@@ -195,7 +195,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
 components:
- securitySchemes:
+  securitySchemes:
     basicAuth:
       type: http
       scheme: basic
