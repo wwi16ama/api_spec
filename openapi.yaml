@@ -7,6 +7,18 @@ info:
 servers:
   - url: 'http://wwi16ama.feste-ip.net/backend_api/'
 paths:
+  /loginCheck:
+    get:
+      summary: Checks if given userID and password are correct
+      security:
+        - basicAuth: []
+      tags: 
+      - Login
+      responses:
+        '200':
+          description: When userID and password are correct
+        '401':
+          description: When userID and password are not correct
   /members:
     $ref: 'https://raw.githubusercontent.com/wwi16ama/api_spec/master/members.yaml#/paths/~1members'
   '/members/{id}':
@@ -183,6 +195,10 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
 components:
+ securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
   schemas:
     Member:
       $ref: 'https://raw.githubusercontent.com/wwi16ama/api_spec/master/members.yaml#/components/schemas/Member'
