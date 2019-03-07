@@ -71,7 +71,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/NewMember'
+              $ref: '#/components/schemas/PostMember'
       tags:
         - Members
       responses:
@@ -145,7 +145,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/NewMember'
+              $ref: '#/components/schemas/PutMember'
       responses:
         '204':
           description: Expected response to a valid request
@@ -195,9 +195,99 @@ paths:
             application/json:
               schema:
                 $ref: 'https://raw.githubusercontent.com/wwi16ama/api_spec/master/openapi.yaml#/components/schemas/Error'
+  '/members/{id}/changePassword':
+    put:
+      summary: Change the password of a specific member
+      operationId: updatePasswordAsUser
+      tags:
+        - Members
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the member who wants to update his password
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        description: Old and new Password
+        required: true
+        content:
+          application/json:
+            schema:
+              properties:
+                password:
+                  $ref: '#/components/schemas/Password'
+                newPassword:
+                  $ref: '#/components/schemas/Password'
+      responses:
+        '204':
+          description: Expected response to a valid request
+        '400':
+          description: When the old Password is not correct
+          content:
+            application/json:
+              schema:
+                $ref: 'https://raw.githubusercontent.com/wwi16ama/api_spec/master/openapi.yaml#/components/schemas/Error'
+        '401':
+          description: If the userId from the Authentification Header and the request-parameter id don't match
+          content:
+            application/json:
+              schema:
+                $ref: 'https://raw.githubusercontent.com/wwi16ama/api_spec/master/openapi.yaml#/components/schemas/Error'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: 'https://raw.githubusercontent.com/wwi16ama/api_spec/master/openapi.yaml#/components/schemas/Error'
+  '/members/{id}/changePasswordAdmin':
+    put:
+      summary: Change the password of a specific member as admin
+      operationId: updatePasswordAsAdmin
+      tags:
+        - Members
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the Member, 
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        description: the new password
+        required: true
+        content:
+          application/json:
+            schema:
+              properties:
+                newPassword:
+                  $ref: '#/components/schemas/Password'
+      responses:
+        '204':
+          description: Expected response to a valid request
+        '401':
+          description: When the user is not admin
+          content:
+            application/json:
+              schema:
+                $ref: 'https://raw.githubusercontent.com/wwi16ama/api_spec/master/openapi.yaml#/components/schemas/Error'
+        '404':
+          description: When there is no User with the specified Id
+          content:
+            application/json:
+              schema:
+                $ref: 'https://raw.githubusercontent.com/wwi16ama/api_spec/master/openapi.yaml#/components/schemas/Error'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: 'https://raw.githubusercontent.com/wwi16ama/api_spec/master/openapi.yaml#/components/schemas/Error'
 components:
   schemas:
-    NewMember:
+    PutMember:
       required:
         - firstName
         - lastName
@@ -240,8 +330,14 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Authorization'
-        password:
-          type: string
+    PostMember:
+      allOf:
+        - required:
+          - password
+          properties:
+            password:
+              $ref: '#/components/schemas/Password'
+        - $ref: '#/components/schemas/PutMember'       
     Member:
       description: services ist noch vorläufig
       allOf:
@@ -260,7 +356,7 @@ components:
               type: array
               items:
                 $ref: 'https://raw.githubusercontent.com/wwi16ama/api_spec/master/openapi.yaml#/components/schemas/Service'
-        - $ref: '#/components/schemas/NewMember'
+        - $ref: '#/components/schemas/PutMember'
     ListMember:
       required:
         - id
@@ -307,3 +403,6 @@ components:
         title:
           type: string
           enum: [VORSTANDSVORSITZENDER, SYSTEMADMINISTRATOR, KASSIERER, FLUGWART, IMBETRIEBSKONTROLLTURMARBEITEND]
+    Password:
+      type: string
+      description: "Mind: 8 Zeichen, 1 Zahl, 1 Buchstabe"
