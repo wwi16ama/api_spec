@@ -197,7 +197,7 @@ paths:
                 $ref: 'https://raw.githubusercontent.com/wwi16ama/api_spec/master/openapi.yaml#/components/schemas/Error'
   '/members/{id}/changePasswordAsMember':
     put:
-      summary: Change the password of a specific member
+      summary: Change your own password as a normal user.
       operationId: updatePasswordAsUser
       tags:
         - Members
@@ -243,7 +243,7 @@ paths:
                 $ref: 'https://raw.githubusercontent.com/wwi16ama/api_spec/master/openapi.yaml#/components/schemas/Error'
   '/members/{id}/changePasswordAsAdmin':
     put:
-      summary: Change the password of a specific member as admin
+      summary: Change the password for another user as admin
       operationId: updatePasswordAsAdmin
       tags:
         - Members
