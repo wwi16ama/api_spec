@@ -405,4 +405,5 @@ components:
           enum: [VORSTANDSVORSITZENDER, SYSTEMADMINISTRATOR, KASSIERER, FLUGWART, IMBETRIEBSKONTROLLTURMARBEITEND]
     Password:
       type: string
+      format: password
       description: "Mind: 8 Zeichen, 1 Zahl, 1 Buchstabe"
