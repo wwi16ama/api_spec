@@ -214,6 +214,9 @@ components:
           type: string
         position:
           type: string
+        pictureUrl:
+          type: string
+          format: uri
         neededAuthorization:
           type: string
           enum: [PPLA, PPLB]
