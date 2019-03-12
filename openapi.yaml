@@ -23,6 +23,10 @@ paths:
     $ref: 'https://raw.githubusercontent.com/wwi16ama/api_spec/master/members.yaml#/paths/~1members'
   '/members/{id}':
     $ref: 'https://raw.githubusercontent.com/wwi16ama/api_spec/master/members.yaml#/paths/~1members~1%7Bid%7D'
+  '/members/{id}/changePasswordAsMember':
+    $ref: 'https://raw.githubusercontent.com/wwi16ama/api_spec/master/members.yaml#/paths/~1members~1%7Bid%7D~1changePasswordAsMember'
+  '/members/{id}/changePasswordAsAdmin':
+    $ref: 'https://raw.githubusercontent.com/wwi16ama/api_spec/master/members.yaml#/paths/~1members~1%7Bid%7D~1changePasswordAsAdmin'
   /planes:
     $ref: 'https://raw.githubusercontent.com/wwi16ama/api_spec/master/planes.yaml#/paths/~1planes'
   '/planes/{id}':
@@ -202,8 +206,10 @@ components:
   schemas:
     Member:
       $ref: 'https://raw.githubusercontent.com/wwi16ama/api_spec/master/members.yaml#/components/schemas/Member'
-    NewMember:
-      $ref: 'https://raw.githubusercontent.com/wwi16ama/api_spec/master/members.yaml#/components/schemas/NewMember'
+    PostMember:
+      $ref: 'https://raw.githubusercontent.com/wwi16ama/api_spec/master/members.yaml#/components/schemas/PostMember'
+    PutMember:
+      $ref: 'https://raw.githubusercontent.com/wwi16ama/api_spec/master/members.yaml#/components/schemas/PutMember'
     ListMember:
       $ref: 'https://raw.githubusercontent.com/wwi16ama/api_spec/master/members.yaml#/components/schemas/ListMember'
     Address:
