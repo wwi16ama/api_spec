@@ -198,7 +198,7 @@ paths:
     post:
       summary: Add transactions to an account
       tags:
-        - Accounts / Transactions
+        - Accounts
       parameters:
         - name: id
           in: path
