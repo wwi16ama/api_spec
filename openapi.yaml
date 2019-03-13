@@ -15,8 +15,17 @@ paths:
       tags: 
       - Login
       responses:
-        '204':
+        '200':
           description: When userID and password are correct
+          content:
+            application/json:
+              schema:
+                required:
+                - memberID
+                type: object
+                properties:
+                  memberID:
+                    type: integer
         '401':
           description: When userID and password are not correct
   /members:
