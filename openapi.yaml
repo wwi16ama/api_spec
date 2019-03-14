@@ -197,7 +197,7 @@ paths:
   
   '/planeLog/{planeId}':
     get:
-      summary: Pilot log entries of a specific member
+      summary: Plane log entries of a specific plane
       tags:
         - Plane Log
       parameters:
@@ -229,6 +229,54 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+    post:
+      summary: Add an entry to a plane's plane log
+      tags:
+        - Plane Log
+      parameters:
+        - name: planeId
+          in: path
+          required: true
+          description: The id of the related plane
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        description: Plane log entry to add to the plane's plane log
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PlaneLogEntry'
+      responses:
+        '200':
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PlaneLogEntry'
+        '400':
+          description: Response when request is wrong, i.e. if required fields are empty
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Response when no plane or member found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          
+      
     
   '/accounts/{id}/transactions':
     post:
@@ -312,16 +360,19 @@ components:
         refuelDateTime:
           type: string
           format: date-time
+        memberId:
+          type: integer
+          format: int32
         location:
           type: string
         startCount:
-          type: integer
+          type: number
           format: float
         endCount:
-          type: integer
+          type: number
           format: float
         totalPrice:
-          type: integer
+          type: number
           format: float
       
     Member:
