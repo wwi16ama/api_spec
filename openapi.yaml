@@ -160,11 +160,45 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+  '/pilotLog/{memberId}':
+    get:
+      summary: Pilot log entry of a specific account
+      tags:
+        - Pilot-Log
+      parameters:
+        - name: memberId
+          in: path
+          required: true
+          description: The id of the member to retrieve
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PilotLogEntry'
+        '404':
+          description: Response when no PioltLog of specific account found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   '/accounts/{id}/transactions':
     post:
       summary: Add transactions to an account
       tags:
-        - Accounts / Transactions
+        - Accounts
       parameters:
         - name: id
           in: path
@@ -213,6 +247,26 @@ components:
       type: http
       scheme: basic
   schemas:
+    PilotLogEntry:
+      description: ""
+      properties:
+        flightId: 
+          type: integer
+          format: int32
+        planeNumber:
+          type: string
+        departureLocation: 
+          type: string
+        departureTime:
+          type: string
+          format: date-time
+        arrivalLocation:
+          type: string
+        arrivalTime:
+          type: string
+          format: date-time
+        flightWithGuests:
+          type: boolean
     Member:
       $ref: 'https://raw.githubusercontent.com/wwi16ama/api_spec/master/members.yaml#/components/schemas/Member'
     PostMember:
