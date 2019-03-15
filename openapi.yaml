@@ -213,9 +213,7 @@ paths:
         content:
           application/json:
             schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/NewTransaction'
+              $ref: '#/components/schemas/NewTransaction'
       responses:
         '200':
           description: Expected response to a valid request
