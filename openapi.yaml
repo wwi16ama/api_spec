@@ -217,7 +217,7 @@ paths:
                 items:
                   $ref: '#/components/schemas/PlaneLogEntry'
         '404':
-          description: Response when no PlaneLog of specific plane found
+          description: Response when no plane found
           content:
             application/json:
               schema:
