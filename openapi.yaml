@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  version: 0.4.4
+  version: 0.4.5
   title: WWI16AMA - Spec
   license:
     name: APL 2
@@ -246,7 +246,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/PlaneLogEntry'
+              $ref: '#/components/schemas/NewPlaneLogEntry'
       responses:
         '200':
           description: Expected response to a valid request
@@ -351,17 +351,18 @@ components:
         flightWithGuests:
           type: boolean
     PlaneLogEntry:
+      allOf:
+        - properties:
+            id:
+              type: integer
+              format: int64
+        - $ref: '#/components/schemas/NewPlaneLogEntry'
+    NewPlaneLogEntry:
       description: ""
       properties:
-        id:
-          type: integer
-          format: int64
         refuelDateTime:
           type: string
           format: date-time
-        memberId:
-          type: integer
-          format: int32
         location:
           type: string
         startCount:
