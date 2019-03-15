@@ -363,6 +363,9 @@ components:
         refuelDateTime:
           type: string
           format: date-time
+        memberId:
+          type: integer
+          format: int32
         location:
           type: string
         startCount:
