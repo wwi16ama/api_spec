@@ -194,7 +194,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  
   '/planeLog/{planeId}':
     get:
       summary: Plane log entries of a specific plane
@@ -374,7 +373,6 @@ components:
         totalPrice:
           type: number
           format: float
-      
     Member:
       $ref: 'https://raw.githubusercontent.com/wwi16ama/api_spec/master/members.yaml#/components/schemas/Member'
     PostMember:
