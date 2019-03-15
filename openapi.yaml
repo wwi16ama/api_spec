@@ -196,7 +196,7 @@ paths:
                 $ref: '#/components/schemas/Error'
   '/accounts/{id}/transactions':
     post:
-      summary: Add transactions to an account
+      summary: Add a single transaction to an account
       tags:
         - Accounts
       parameters:
@@ -208,14 +208,12 @@ paths:
             type: integer
             format: int32
       requestBody:
-        description: Transactions to add to the account
+        description: Transaction to add to the account
         required: true
         content:
           application/json:
             schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/NewTransaction'
+              $ref: '#/components/schemas/NewTransaction'
       responses:
         '200':
           description: Expected response to a valid request
