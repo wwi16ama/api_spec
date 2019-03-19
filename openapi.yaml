@@ -6,12 +6,12 @@ info:
     name: APL 2
 servers:
   - url: 'http://wwi16ama.feste-ip.net/backend_api/'
+security:
+  - basicAuth: []
 paths:
   /loginCheck:
     get:
-      summary: Checks if given userID and password are correct
-      security:
-        - basicAuth: []
+      summary: '[] Checks if given userID and password are correct'
       tags: 
       - Login
       responses:
@@ -33,7 +33,7 @@ paths:
     $ref: 'https://raw.githubusercontent.com/wwi16ama/api_spec/master/planes.yaml#/paths/~1planes~1%7Bid%7D'
   /fees:
     get:
-      summary: List of fees
+      summary: '[] List of fees'
       tags:
         - Fees / Credits
       responses:
@@ -47,7 +47,7 @@ paths:
                   $ref: '#/components/schemas/Fee'
   /credits:  
     get:
-      summary: List of credits (Gutschriftenliste)
+      summary: '[] List of credits (Gutschriftenliste)'
       tags:
         - Fees / Credits
       responses:
@@ -61,7 +61,7 @@ paths:
                   $ref: '#/components/schemas/Credit'
   /accounts:
     get:
-      summary: Paginated list of accounts without transactions.
+      summary: '[KASSIERER] Paginated list of accounts without transactions.'
       tags:
         - Accounts
       parameters:
@@ -121,7 +121,7 @@ paths:
                 $ref: '#/components/schemas/Error'
   '/accounts/{id}':
     get:
-      summary: Info for a specific account with his transactions
+      summary: '[KASSIERER, SELF] Info for a specific account with his transactions'
       tags:
         - Accounts
       parameters:
@@ -151,43 +151,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  '/pilotLog/{memberId}':
-    get:
-      summary: Pilot log entry of a specific account
-      tags:
-        - Pilot-Log
-      parameters:
-        - name: memberId
-          in: path
-          required: true
-          description: The id of the member to retrieve
-          schema:
-            type: integer
-            format: int32
-      responses:
-        '200':
-          description: Expected response to a valid request
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/PilotLogEntry'
-        '404':
-          description: Response when no PioltLog of specific account found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        default:
-          description: unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
   '/accounts/{id}/transactions':
     post:
-      summary: Add a single transaction to an account
+      summary: '[KASSIERER, SELF] Add a single transaction to an account'
       tags:
         - Accounts
       parameters:
@@ -220,6 +186,40 @@ paths:
                 $ref: '#/components/schemas/Error'
         '404':
           description: Response when no member found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  '/pilotLog/{memberId}':
+    get:
+      summary: '[VV, SYSADMIN, SELF] Pilot log entry of a specific account'
+      tags:
+        - Pilot-Log
+      parameters:
+        - name: memberId
+          in: path
+          required: true
+          description: The id of the member to retrieve
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PilotLogEntry'
+        '404':
+          description: Response when no PioltLog of specific account found
           content:
             application/json:
               schema:
