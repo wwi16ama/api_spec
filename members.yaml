@@ -195,6 +195,48 @@ paths:
             application/json:
               schema:
                 $ref: 'https://raw.githubusercontent.com/wwi16ama/api_spec/master/openapi.yaml#/components/schemas/Error'
+  '/members/{id}/changeContactDetails':
+    put:
+      summary: Change your own contact details (name, mail, address) as a normal user.
+      operationId: changeContactData
+      tags:
+        - Members
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the the member
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        description: Object with the updated contact details
+        required: true
+        content:
+          application/json:
+            schema:
+                $ref: '#/components/schemas/MemberContactDetails'
+      responses:
+        '204':
+          description: Expected response to a valid request
+        '400':
+          description: When the old Password is not correct
+          content:
+            application/json:
+              schema:
+                $ref: 'https://raw.githubusercontent.com/wwi16ama/api_spec/master/openapi.yaml#/components/schemas/Error'
+        '401':
+          description: If the userId from the Authentification Header and the request-parameter id don't match
+          content:
+            application/json:
+              schema:
+                $ref: 'https://raw.githubusercontent.com/wwi16ama/api_spec/master/openapi.yaml#/components/schemas/Error'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: 'https://raw.githubusercontent.com/wwi16ama/api_spec/master/openapi.yaml#/components/schemas/Error'  
   '/members/{id}/changePasswordAsMember':
     put:
       summary: Change your own password as a normal user.
@@ -287,49 +329,54 @@ paths:
                 $ref: 'https://raw.githubusercontent.com/wwi16ama/api_spec/master/openapi.yaml#/components/schemas/Error'
 components:
   schemas:
-    PutMember:
+    MemberContactDetails:
       required:
         - firstName
         - lastName
-        - dateOfBirth
-        - gender
-        - status
         - email
         - address
-        - bankingAccount
-        - admissioned
-        - password
       properties:
         firstName:
           type: string
         lastName:
           type: string
-        dateOfBirth:
-          type: string
-          format: date
-        gender:
-          type: string
-          enum: [MALE, FEMALE]
-        status:
-          type: string
-          enum: [ACTIVE, PASSIVE, HONORARYMEMBER]
         email:
           type: string
           format: email
         address:
           $ref: '#/components/schemas/Address'
-        bankingAccount:
-          type: string
-        admissioned:
-          type: boolean
-        offices:
-          type: array
-          items:
-            $ref: '#/components/schemas/Office'
-        flightAuthorization:
-          type: array
-          items:
-            $ref: '#/components/schemas/Authorization'
+    PutMember:
+      allOf:
+        - $ref: '#/components/schemas/MemberContactDetails'       
+        - required:
+          - dateOfBirth
+          - gender
+          - status
+          - bankingAccount
+          - admissioned
+          - password
+          properties:
+            dateOfBirth:
+              type: string
+              format: date
+            gender:
+              type: string
+              enum: [MALE, FEMALE]
+            status:
+              type: string
+              enum: [ACTIVE, PASSIVE, HONORARYMEMBER]
+            bankingAccount:
+              type: string
+            admissioned:
+              type: boolean
+            offices:
+              type: array
+              items:
+                $ref: '#/components/schemas/Office'
+            flightAuthorization:
+              type: array
+              items:
+                $ref: '#/components/schemas/Authorization'
     PostMember:
       allOf:
         - required:
