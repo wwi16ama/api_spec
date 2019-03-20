@@ -162,7 +162,7 @@ paths:
                 $ref: '#/components/schemas/Error'
   '/pilotLog/{memberId}':
     get:
-      summary: Pilot log entry of a specific Member's Pilotlog
+      summary: '[SELF] Pilot log entry of a specific Member''s Pilotlog'
       tags:
         - Pilot-Log
       parameters:
@@ -196,7 +196,7 @@ paths:
                 $ref: '#/components/schemas/Error'
   '/pilotLog/{memberId}/pilotlogentry':              
     post:
-      summary: New Pilotlogentry of a specific Member's Pilotlog
+      summary: '[SELF] New Pilotlogentry of a specific Member''s Pilotlog'
       tags:
         - Pilot-Log
       parameters:
