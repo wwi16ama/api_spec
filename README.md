@@ -1,11 +1,15 @@
 # api_spec
-Specification for the REST-API
 
-## Version numbering
-version: X.Y.Z
-  - X: per final Sprint Version
-  - Y: per version with new feature from a branch
-  - Z: bugs squashed, bugs added
-## forking
+## editing
 
-to propose changes, fork and create a pull request
+[swagger editor](https://editor.swagger.io)
+
+## Berechtigungen
+
+In der `summary` einer Route direkt zu beginn in eckigen Klammern die notwendigen Berechtigungen angeben.
+
+- `VV` bezeichnet die Rolle Vorstandsvorsitzenden.
+- `SYSADMIN` meint den Systemadministrator.
+- `SELF` bezeichnet den Zugriff auf _eigene_ Daten, also Daten, die dem eingeloggten User zugeordnet sind.
+- `KASSIERER` und `FLUGWART` werden ausgeschrieben.
+- `[]` bedeutet, dass _jeder_ die Route aufrufen darf. Wobei er dafür jedoch immernoch tendenziell _eingeloggt_ sein muss.
