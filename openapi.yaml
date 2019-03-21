@@ -153,7 +153,7 @@ paths:
                 $ref: '#/components/schemas/Error'
   '/pilotLog/{memberId}':
     get:
-      summary: Pilot log entry of a specific account
+      summary: '[SELF] Pilot log entry of a specific Member''s Pilotlog'
       tags:
         - Pilot-Log
       parameters:
@@ -175,6 +175,40 @@ paths:
                   $ref: '#/components/schemas/PilotLogEntry'
         '404':
           description: Response when no PioltLog of specific account found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  '/pilotLog/{memberId}/pilotlogentry':              
+    post:
+      summary: '[SELF] New Pilotlogentry of a specific Member''s Pilotlog'
+      tags:
+        - Pilot-Log
+      parameters:
+        - name: memberId
+          in: path
+          required: true
+          description: The id of the member to retrieve
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/NewPilotLogEntry'
+        '404':
+          description: Response when no PioltLog of specific Member is found
           content:
             application/json:
               schema:
@@ -237,11 +271,26 @@ components:
       scheme: basic
   schemas:
     PilotLogEntry:
-      description: ""
       properties:
         flightId: 
           type: integer
           format: int32
+        planeNumber:
+          type: string
+        departureLocation: 
+          type: string
+        departureTime:
+          type: string
+          format: date-time
+        arrivalLocation:
+          type: string
+        arrivalTime:
+          type: string
+          format: date-time
+        flightWithGuests:
+          type: boolean
+    NewPilotLogEntry:
+      properties:
         planeNumber:
           type: string
         departureLocation: 
@@ -361,3 +410,4 @@ components:
     ServiceName:
       type: string
       enum: [VORSTANDSMITGLIED, FLUGLEHRER, FLUGWART, TAGESEINSATZ, PILOT]
+      
