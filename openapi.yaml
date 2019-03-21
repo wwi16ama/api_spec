@@ -19,6 +19,16 @@ paths:
           description: When userID and password are correct
         '401':
           description: When userID and password are not correct
+  /logout:
+    get:
+      summary: Log's User out and removes SessionId
+      security:
+        - basicAuth: []
+      tags:
+        - Logout
+      responses:
+        '204':
+          description: With redirect to /login?logout
   /members:
     $ref: 'https://raw.githubusercontent.com/wwi16ama/api_spec/master/members.yaml#/paths/~1members'
   '/members/{id}':
