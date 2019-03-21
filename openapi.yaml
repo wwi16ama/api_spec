@@ -185,7 +185,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
         '404':
-          description: Response when no member found
+          description: Response when no account found
           content:
             application/json:
               schema:
@@ -219,7 +219,7 @@ paths:
                 items:
                   $ref: '#/components/schemas/PilotLogEntry'
         '404':
-          description: Response when no PioltLog of specific account found
+          description: Response when no PioltLog of specific Member is found
           content:
             application/json:
               schema:
