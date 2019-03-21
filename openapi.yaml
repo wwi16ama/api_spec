@@ -21,7 +21,7 @@ paths:
           description: When userID and password are not correct
   /logout:
     get:
-      summary: Log's User out and removes SessionId
+      summary: Log's User out and invalidates session
       security:
         - basicAuth: []
       tags:
