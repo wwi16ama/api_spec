@@ -13,7 +13,7 @@ paths:
       security:
         - basicAuth: []
       tags: 
-      - Login
+      - Login / Logout
       responses:
         '204':
           description: When userID and password are correct
@@ -25,7 +25,7 @@ paths:
       security:
         - basicAuth: []
       tags:
-        - Logout
+        - Login / Logout
       responses:
         '204':
           description: With redirect to /login?logout
