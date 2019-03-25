@@ -13,12 +13,22 @@ paths:
       security:
         - basicAuth: []
       tags: 
-      - Login
+      - Login / Logout
       responses:
         '204':
           description: When userID and password are correct
         '401':
           description: When userID and password are not correct
+  /logout:
+    get:
+      summary: Log's User out and invalidates session
+      security:
+        - basicAuth: []
+      tags:
+        - Login / Logout
+      responses:
+        '204':
+          description: With redirect to /login?logout
   /members:
     $ref: 'https://raw.githubusercontent.com/wwi16ama/api_spec/master/members.yaml#/paths/~1members'
   '/members/{id}':
