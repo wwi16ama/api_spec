@@ -5,7 +5,7 @@ info:
 paths:
   /planes:
     get:
-      summary: List of all planes
+      summary: '[] List of all planes'
       operationId: listPlanes
       tags:
         - Planes
@@ -63,7 +63,7 @@ paths:
               schema:
                 $ref: 'https://raw.githubusercontent.com/wwi16ama/api_spec/master/openapi.yaml#/components/schemas/Error'
     post:
-      summary: Create a plane
+      summary: '[VV, SYSADMIN] Create a plane'
       operationId: createPlanes
       requestBody:
         description: Plane to add
@@ -95,7 +95,7 @@ paths:
                 $ref: 'https://raw.githubusercontent.com/wwi16ama/api_spec/master/openapi.yaml#/components/schemas/Error'
   '/planes/{id}':
     get:
-      summary: Info for a specific plane
+      summary: '[] Info for a specific plane'
       operationId: showPlaneById
       tags:
         - Planes
@@ -129,7 +129,7 @@ paths:
               schema:
                 $ref: 'https://raw.githubusercontent.com/wwi16ama/api_spec/master/openapi.yaml#/components/schemas/Error'
     put:
-      summary: Update a specific plane
+      summary: '[VV, SYSADMIN] Update a specific plane'
       operationId: updatePlaneById
       tags:
         - Planes
@@ -170,7 +170,7 @@ paths:
               schema:
                 $ref: 'https://raw.githubusercontent.com/wwi16ama/api_spec/master/openapi.yaml#/components/schemas/Error'
     delete:
-      summary: Delete specific plane
+      summary: '[VV, SYSADMIN] Delete specific plane'
       operationId: deletePlaneById
       tags:
         - Planes
