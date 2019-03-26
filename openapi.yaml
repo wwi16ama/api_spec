@@ -6,6 +6,9 @@ info:
     name: APL 2
 servers:
   - url: 'http://wwi16ama.feste-ip.net/backend_api/'
+    description: Production server (uses live data)
+  - url: 'http://wwi16ama.feste-ip.net/backend_api_test/'
+    description: Test server (uses test data for integration)
 security:
   - basicAuth: []
 paths:
