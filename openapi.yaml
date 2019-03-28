@@ -302,6 +302,9 @@ components:
           type: boolean
     NewPilotLogEntry:
       properties:
+        flightId:
+          type: integer
+          format: int32
         planeNumber:
           type: string
         departureLocation: 
