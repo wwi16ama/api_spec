@@ -262,9 +262,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/NewPilotLogEntry'
+                $ref: '#/components/schemas/NewPilotLogEntry'
         '404':
           description: Response when no PioltLog of specific Member is found
           content:
