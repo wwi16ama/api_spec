@@ -303,7 +303,8 @@ components:
     NewPilotLogEntry:
       properties:
         flightId:
-          type: int32
+          type: integer
+          format: int32
         planeNumber:
           type: string
         departureLocation: 
