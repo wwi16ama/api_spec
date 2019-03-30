@@ -77,40 +77,6 @@ paths:
       summary: '[KASSIERER] Paginated list of accounts without transactions.'
       tags:
         - Accounts
-      parameters:
-        - name: limit
-          in: query
-          description: How many items to return at one time (max 100)
-          required: false
-          schema:
-            type: integer
-            format: int32
-            minimum: 1
-            maximum: 100
-            default: 20
-        - name: start
-          in: query
-          description: How many items to skip
-          required: false
-          schema:
-            type: integer
-            format: int32
-            default: 0
-        - name: orderBy
-          in: query
-          description: The field by which the result is to be sorted
-          required: false
-          schema:
-            type: string
-            default: lastName
-        - name: direction
-          in: query
-          description: the sorting direction
-          required: false
-          schema:
-            type: string
-            enum: ["asc", "desc"]
-            default: "asc"
       responses:
         '200':
           description: A paged array of Accounts
@@ -126,6 +92,24 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /accounts/vereinskonto:
+    get:
+      summary: '[VV, SYSADMIN, KASSIERER] Zeigt das Vereinskonto.'
+      tags:
+        - Accounts
+      responses:
+        '200':
+          description: Das Vereinskonto
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListAccount'
         default:
           description: unexpected error
           content:
@@ -410,7 +394,7 @@ components:
           format: double
         type:
           type: string
-          enum: ["MITGLIEDSBEITRAG", "GEBÜHRFLUGZEUG", "GUTSCHRIFTAMT", "GUTSCHRIFTLEISTUNG","EINZAHLUNG"]
+          enum: ["MITGLIEDSBEITRAG", "GEBÜHRFLUGZEUG", "GUTSCHRIFTAMT", "GUTSCHRIFTLEISTUNG","EINZAHLUNG", "AUSZAHLUNG"]
     Transaction:
       allOf:
         - properties:
