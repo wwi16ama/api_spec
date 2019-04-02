@@ -216,6 +216,7 @@ components:
           type: string
         pictureUrl:
           type: string
+          maxLength: 255
           format: uri
         neededAuthorization:
           type: string
