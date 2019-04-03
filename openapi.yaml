@@ -428,10 +428,10 @@ components:
       allOf:
         - $ref: '#/components/schemas/AbstractService'
         - properties:
-            startTime:
+            startDate:
               type: string
               format: date
-            endTime:
+            endDate:
               type: string
               format: date
     Error:
