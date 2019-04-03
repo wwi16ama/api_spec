@@ -514,5 +514,5 @@ components:
         - $ref: '#/components/schemas/NewTransaction'
     ServiceName:
       type: string
-      enum: [VORSTANDSMITGLIED, FLUGLEHRER, FLUGWART, TAGESEINSATZ, PILOT]
+      enum: [J_VORSTANDSMITGLIED, J_FLUGLEHRER, J_FLUGWART, T_TAGESEINSATZ, T_PILOT]
       
