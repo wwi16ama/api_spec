@@ -370,7 +370,9 @@ components:
             services:
               type: array
               items:
-                $ref: 'https://raw.githubusercontent.com/wwi16ama/api_spec/master/openapi.yaml#/components/schemas/Service'
+                oneOf:
+                  - $ref: 'https://raw.githubusercontent.com/wwi16ama/api_spec/master/openapi.yaml#/components/schemas/DailyService'
+                  - $ref: 'https://raw.githubusercontent.com/wwi16ama/api_spec/master/openapi.yaml#/components/schemas/YearlyService'
         - $ref: '#/components/schemas/PutMember'
     ListMember:
       required:
