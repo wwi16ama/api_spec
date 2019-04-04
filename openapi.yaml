@@ -494,14 +494,13 @@ components:
     NewTransaction:
       required:
         - amount
-        - type
+        - text
       properties:
         amount:
           type: number
           format: double
-        type:
+        text:
           type: string
-          enum: ["MITGLIEDSBEITRAG", "GEBÜHRFLUGZEUG", "GUTSCHRIFTAMT", "GUTSCHRIFTLEISTUNG","EINZAHLUNG", "AUSZAHLUNG"]
     Transaction:
       allOf:
         - properties:
