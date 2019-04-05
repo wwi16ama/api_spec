@@ -60,9 +60,7 @@ paths:
               schema:
                 type: array
                 items:
-                  oneOf:
-                    - $ref: '#/components/schemas/YearlyService'
-                    - $ref: '#/components/schemas/DailyService'
+                  $ref: '#/components/schemas/Service'
         '404':
           description: Response when no member found
           content:
@@ -75,9 +73,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  '/services/yearly/{memberId}':
     post:
-      summary: '[VV, SYSADMIN] create new yearly Service'
+      summary: '[VV, SYSADMIN] create new Service'
       tags:
         - Geleistete Dienste
       parameters:
@@ -92,40 +89,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/YearlyService'
-      responses:
-        '204':
-          description: Expected response to a valid request
-        '404':
-          description: Response when no PioltLog of specific Member is found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        default:
-          description: unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-  '/services/daily/{memberId}':
-    post:
-      summary: '[VV, SYSADMIN] Create Daily Service'
-      tags:
-        - Geleistete Dienste
-      parameters:
-        - name: memberId
-          in: path
-          required: true
-          schema:
-            type: integer
-            format: int32
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/DailyService'
+              $ref: '#/components/schemas/Service'
       responses:
         '204':
           description: Expected response to a valid request
@@ -405,7 +369,12 @@ components:
       $ref: 'https://raw.githubusercontent.com/wwi16ama/api_spec/master/members.yaml#/components/schemas/ListMember'
     Address:
       $ref: 'https://raw.githubusercontent.com/wwi16ama/api_spec/master/members.yaml#/components/schemas/Address'
-    AbstractService:
+    Service:
+      description: "Bei einem jährlichen Dienst (Präfix: J_) MUSS das StartDatum der 1.2. und das EndDatum der 31.1. des Abrechnungsjahres sein. Services können nur für das aktuelle Abrechnungsjahr angelegt werden."
+      required: 
+        - name
+        - gutschrift
+        - startDate
       properties:
         id:
           type: integer
@@ -415,25 +384,12 @@ components:
         gutschrift:
           type: number
           format: double
-    YearlyService:
-      description: ""
-      allOf:
-        - $ref: '#/components/schemas/AbstractService'
-        - properties:
-            year:
-              type: string
-              format: year
-    DailyService:
-      description: "" 
-      allOf:
-        - $ref: '#/components/schemas/AbstractService'
-        - properties:
-            startDate:
-              type: string
-              format: date
-            endDate:
-              type: string
-              format: date
+        startDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
     Error:
       required:
         - url
