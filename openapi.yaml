@@ -18,8 +18,15 @@ paths:
       tags: 
       - Login / Logout
       responses:
-        '204':
-          description: When userID and password are correct
+        '200':
+          description: array of the authorizations the users holds.  
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                  enum: [VORSTANDSVORSITZENDER, SYSTEMADMINISTRATOR, KASSIERER, FLUGWART, ACTIVE, PASSIVE]
         '401':
           description: When userID and password are not correct
   /logout:
