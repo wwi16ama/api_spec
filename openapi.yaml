@@ -6,6 +6,9 @@ info:
     name: APL 2
 servers:
   - url: 'http://wwi16ama.feste-ip.net/backend_api/'
+    description: Production server (uses live data)
+  - url: 'http://wwi16ama.feste-ip.net/backend_api_test/'
+    description: Test server (uses test data for integration)
 security:
   - basicAuth: []
 paths:
@@ -15,8 +18,15 @@ paths:
       tags: 
       - Login / Logout
       responses:
-        '204':
-          description: When userID and password are correct
+        '200':
+          description: array of the authorizations the users holds.  
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                  enum: [VORSTANDSVORSITZENDER, SYSTEMADMINISTRATOR, KASSIERER, FLUGWART, ACTIVE, PASSIVE]
         '401':
           description: When userID and password are not correct
   /logout:
@@ -37,6 +47,71 @@ paths:
     $ref: 'https://raw.githubusercontent.com/wwi16ama/api_spec/master/members.yaml#/paths/~1members~1%7Bid%7D~1changePasswordAsMember'
   '/members/{id}/changePasswordAsAdmin':
     $ref: 'https://raw.githubusercontent.com/wwi16ama/api_spec/master/members.yaml#/paths/~1members~1%7Bid%7D~1changePasswordAsAdmin'
+  '/services/{memberId}':
+    get:
+      summary: '[VV, SYSADMIN, SELF]'
+      tags:
+        - Geleistete Dienste
+      parameters:
+        - name: memberId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Service'
+        '404':
+          description: Response when no member found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      summary: '[VV, SYSADMIN] create new Service'
+      tags:
+        - Geleistete Dienste
+      parameters:
+        - name: memberId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Service'
+      responses:
+        '204':
+          description: Expected response to a valid request
+        '404':
+          description: Response when no PioltLog of specific Member is found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /planes:
     $ref: 'https://raw.githubusercontent.com/wwi16ama/api_spec/master/planes.yaml#/paths/~1planes'
   '/planes/{id}':
@@ -74,40 +149,6 @@ paths:
       summary: '[KASSIERER] Paginated list of accounts without transactions.'
       tags:
         - Accounts
-      parameters:
-        - name: limit
-          in: query
-          description: How many items to return at one time (max 100)
-          required: false
-          schema:
-            type: integer
-            format: int32
-            minimum: 1
-            maximum: 100
-            default: 20
-        - name: start
-          in: query
-          description: How many items to skip
-          required: false
-          schema:
-            type: integer
-            format: int32
-            default: 0
-        - name: orderBy
-          in: query
-          description: The field by which the result is to be sorted
-          required: false
-          schema:
-            type: string
-            default: lastName
-        - name: direction
-          in: query
-          description: the sorting direction
-          required: false
-          schema:
-            type: string
-            enum: ["asc", "desc"]
-            default: "asc"
       responses:
         '200':
           description: A paged array of Accounts
@@ -123,6 +164,24 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /accounts/vereinskonto:
+    get:
+      summary: '[VV, SYSADMIN, KASSIERER] Zeigt das Vereinskonto.'
+      tags:
+        - Accounts
+      responses:
+        '200':
+          description: Das Vereinskonto
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListAccount'
         default:
           description: unexpected error
           content:
@@ -253,15 +312,19 @@ paths:
           schema:
             type: integer
             format: int32
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewPilotLogEntry'
       responses:
         '200':
           description: Expected response to a valid request
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/NewPilotLogEntry'
+                $ref: '#/components/schemas/NewPilotLogEntry'
         '404':
           description: Response when no PioltLog of specific Member is found
           content:
@@ -361,24 +424,12 @@ components:
       scheme: basic
   schemas:
     PilotLogEntry:
-      properties:
-        flightId: 
-          type: integer
-          format: int32
-        planeNumber:
-          type: string
-        departureLocation: 
-          type: string
-        departureTime:
-          type: string
-          format: date-time
-        arrivalLocation:
-          type: string
-        arrivalTime:
-          type: string
-          format: date-time
-        flightWithGuests:
-          type: boolean
+      allOf:
+        - properties:
+            flightId: 
+              type: integer
+              format: int32
+        - $ref: '#/components/schemas/NewPilotLogEntry'
     NewPilotLogEntry:
       properties:
         planeNumber:
@@ -433,17 +484,24 @@ components:
     Address:
       $ref: 'https://raw.githubusercontent.com/wwi16ama/api_spec/master/members.yaml#/components/schemas/Address'
     Service:
-      description: "Für Abrechnung später schlage ich vor, diese Klasse einzuführen. Service erweitert / flankiert __Offices__" 
+      description: "Bei einem jährlichen Dienst (Präfix: J_) MUSS das StartDatum der 1.2. und das EndDatum der 31.1. des Abrechnungsjahres sein. Services können nur für das aktuelle Abrechnungsjahr angelegt werden."
+      required: 
+        - name
+        - gutschrift
+        - startDate
       properties:
         id:
           type: integer
           format: int32
         name:
           $ref: '#/components/schemas/ServiceName'
-        from:
+        gutschrift:
+          type: number
+          format: double
+        startDate:
           type: string
           format: date
-        to:
+        endDate:
           type: string
           format: date
     Error:
@@ -506,14 +564,13 @@ components:
     NewTransaction:
       required:
         - amount
-        - type
+        - text
       properties:
         amount:
           type: number
           format: double
-        type:
+        text:
           type: string
-          enum: ["MITGLIEDSBEITRAG", "GEBÜHRFLUGZEUG", "GUTSCHRIFTAMT", "GUTSCHRIFTLEISTUNG","EINZAHLUNG"]
     Transaction:
       allOf:
         - properties:
@@ -526,5 +583,5 @@ components:
         - $ref: '#/components/schemas/NewTransaction'
     ServiceName:
       type: string
-      enum: [VORSTANDSMITGLIED, FLUGLEHRER, FLUGWART, TAGESEINSATZ, PILOT]
+      enum: [J_VORSTANDSMITGLIED, J_FLUGLEHRER, J_FLUGWART, T_TAGESEINSATZ, T_PILOT]
       
