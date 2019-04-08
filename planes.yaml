@@ -210,6 +210,7 @@ components:
       properties:
         number:
           type: string
+          description: The PlaneNumber must be unique. I.e there's only one plane with the number D-ERFI
         name:
           type: string
         position:

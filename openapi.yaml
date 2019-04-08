@@ -324,7 +324,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/NewPilotLogEntry'
+                $ref: '#/components/schemas/PilotLogEntry'
+        '400':
+          description: Response when request is wrong, i.e. if required fields are empty
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         '404':
           description: Response when no PioltLog of specific Member is found
           content:
@@ -430,6 +436,10 @@ components:
               type: integer
               format: int32
         - $ref: '#/components/schemas/NewPilotLogEntry'
+        - properties:
+            flightPrice:
+              type: number
+              format: double
     NewPilotLogEntry:
       properties:
         planeNumber:
@@ -446,6 +456,9 @@ components:
           format: date-time
         flightWithGuests:
           type: boolean
+        usageTime:
+          type: integer
+          format: int32
     PlaneLogEntry:
       allOf:
         - properties:
@@ -470,7 +483,7 @@ components:
         endCount:
           type: number
           format: float
-        totalPrice:
+        fuelPrice:
           type: number
           format: float
     Member:
