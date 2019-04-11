@@ -8,7 +8,7 @@
 
 In der `summary` einer Route direkt zu Beginn stehen in eckigen Klammern die notwendigen Berechtigungen angeben. 
 Die Route `/loginCheck` gibt nun die Rollen und den Status eines Members zurück.
-Hierbei sind folgende Rollen und Status zurückgegeben: 
+Hierbei werden folgende Rollen und Status zurückgegeben: 
 
 `VORSTANDSVORSITZENDER, SYSTEMADMINISTRATOR, KASSIERER, FLUGWART, ACTIVE, PASSIVE`
 
