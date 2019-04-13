@@ -43,6 +43,8 @@ paths:
     $ref: 'https://raw.githubusercontent.com/wwi16ama/api_spec/master/members.yaml#/paths/~1members'
   '/members/{id}':
     $ref: 'https://raw.githubusercontent.com/wwi16ama/api_spec/master/members.yaml#/paths/~1members~1%7Bid%7D'
+  '/members/{id}/changeContactDetails':
+    $ref: 'https://raw.githubusercontent.com/wwi16ama/api_spec/master/members.yaml#/paths/~1members~1%7Bid%7D~1changeContactDetails'
   '/members/{id}/changePasswordAsMember':
     $ref: 'https://raw.githubusercontent.com/wwi16ama/api_spec/master/members.yaml#/paths/~1members~1%7Bid%7D~1changePasswordAsMember'
   '/members/{id}/changePasswordAsAdmin':
