@@ -378,6 +378,7 @@ components:
         - firstName
         - lastName
         - memberBankingAccountId
+        - offices
       properties:
         id:
           type: integer
@@ -389,6 +390,10 @@ components:
         memberBankingAccountId:
           type: integer
           format: int32
+        offices:
+          type: array
+          items: 
+            $ref: '#/components/schemas/Office'
     Address:
       required:
         - postalCode
