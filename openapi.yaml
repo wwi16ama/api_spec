@@ -425,6 +425,54 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+  '/planeLog/{planeId}/{planeLogEntryId}':
+    put:
+      summary: '[VV] Updates a specific PlaneLogEntry'
+      tags:
+        - Plane Log
+      parameters:
+        - name: planeId
+          in: path
+          required: true
+          description: The id of the plane to update
+          schema:
+            type: integer
+            format: int32
+        - name: planeLogEntryId
+          in: path
+          required: true
+          description: The id of the PlaneLogEntry to update
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        description: PlaneLogEntry to update
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewPlaneLogEntry'
+      responses:
+        '204':
+          description: Expected response to a valid request
+        '400':
+          description: Response when request is wrong, i.e. if required fields are empty
+          content:
+            application/json:
+              schema:
+                $ref: 'https://raw.githubusercontent.com/wwi16ama/api_spec/master/openapi.yaml#/components/schemas/Error'
+        '404':
+          description: Response when no plane or no PlaneLogEntry were found
+          content:
+            application/json:
+              schema:
+                $ref: 'https://raw.githubusercontent.com/wwi16ama/api_spec/master/openapi.yaml#/components/schemas/Error'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: 'https://raw.githubusercontent.com/wwi16ama/api_spec/master/openapi.yaml#/components/schemas/Error'            
 components:
   securitySchemes:
     basicAuth:
