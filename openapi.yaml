@@ -267,6 +267,43 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+  '/accounts/vereinskonto/transactions':
+    post:
+      summary: '[VV, SYSADMIN, KASSIERER] Add an external transaction to the Vereinskonto'
+      tags:
+        - Accounts
+      requestBody:
+        description: Transaction to add to the account
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewTransaction'
+      responses:
+        '200':
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transaction'
+        '400':
+          description: Response when request is wrong, i.e. if required fields are empty
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Response when no account found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   '/pilotLog/{memberId}':
     get:
       summary: '[SELF] Pilot log entry of a specific Member''s Pilotlog'
